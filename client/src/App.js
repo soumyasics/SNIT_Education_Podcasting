@@ -40,6 +40,19 @@ import ListenerViewEpisode from "./Pages/Listener/ListenerViewEpisode";
 import AdminViewEpisode from "./Pages/Admin/AdminViewEpisode";
 import ViewReview from "./Pages/Creator/ViewReview";
 import HidePermanentlyOnClick from './Pages/Hide'
+import ExamCoordinatorLogin from "./Components/AdminExam Coordinator/AdminExamCoordinatorLogin";
+import ExamCoordinateEdit from "./Components/AdminExam Coordinator/AdminExamCoordinateView";
+import ExamCoordinatorSave from "./Components/AdminExam Coordinator/AdminExamCoordinatorEdit";
+import AdminExamCoordinatorLogin from "./Components/AdminExam Coordinator/AdminExamCoordinatorLogin";
+import AdminExamCoordinateView from "./Components/AdminExam Coordinator/AdminExamCoordinateView";
+import AdminExamCoordinatorEdit from "./Components/AdminExam Coordinator/AdminExamCoordinatorEdit";
+import ExamCordinatorLogin from "./Pages/Exam Coordinator/ExamCordinatorLogin";
+import ExamCoordinatorHome from "./Pages/Exam Coordinator/ExamCoordinatorHome";
+import ExamCoordinatorNav from "./Pages/Exam Coordinator/ExamCoordinatorNav";
+import ViewRequest from "./Pages/Exam Coordinator/ViewRequest";
+import ExamCoordinatorViewQuestion from "./Pages/Exam Coordinator/ExamCoordinatorViewQuestion";
+import Viewall from "./Pages/Exam Coordinator/Viewall";
+import ViewAllQuestion from "./Pages/Exam Coordinator/ViewAllQuestion";
 function App() {
 
   const url = 'http://localhost:4030/'
@@ -97,6 +110,19 @@ function App() {
         <Route path="/adminviewepisode/:id" element={<AdminViewEpisode url={url} />} />
         <Route path="/viewreview/:id" element={[<CreatorNavbar url={url} />,<ViewReview url={url} />, <Footer />]} />
         <Route path="/hide" element={<HidePermanentlyOnClick/>}/>
+
+        <Route path='/adminexamcoordinatelogin' element={<AdminExamCoordinatorLogin/>} />
+        <Route path='/adminexamcoordinateedit' element={<AdminExamCoordinateView/>} />
+        <Route path='/adminexamcoordinatesave' element={<AdminExamCoordinatorEdit/>} />
+
+        <Route path='/examcoordinatelogin' element={<ExamCordinatorLogin/>} />
+        <Route path='/examcoordinateNav' element={<ExamCoordinatorNav/>} />
+        <Route path='/examcoordinatehome' element={[<ExamCoordinatorNav/>,<ExamCoordinatorHome/>,<Footer/>]} />
+        <Route path='/examcoordinateviewrequest' element={[<ExamCoordinatorNav/>,<ViewRequest/>,<Footer/>]} />
+        <Route path='/examcoordinateviewquestion' element={[<ExamCoordinatorNav/>,<ExamCoordinatorViewQuestion/>,<Footer/>]} />
+        <Route path='/examcoordinateviewall' element={[<ExamCoordinatorNav/>,<Viewall/>,<Footer/>]} />
+        <Route path='/examcoordinateviewallquestion' element={[<ExamCoordinatorNav/>,<ViewAllQuestion/>,<Footer/>]} />
+
       </Routes>
     </BrowserRouter>
   );
