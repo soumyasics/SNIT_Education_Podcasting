@@ -21,20 +21,32 @@
     font-size: large;
     margin-bottom: 5%;
 }
-.sidebar{
-  margin-top: 10%;
-  margin-left: 2%;
-}
+
 .sidebarelements{
-  padding: 1%;
-  width:4%;
-  border-radius: 6PX;
-  margin: 1%;
+  margin-left: 50px;
 }
-.sidebarelements:hover{
-  background-color: #292929;
-  color: aliceblue;
-  /* width: 100%; */
+.adminsidebar-link:hover{
+  color: white;
+}
+.adminsidebar-link{
+  color: black;
+}
+.adminsidebar-background-color:hover{
+  background-color: black;
+  color: white;
+  min-height: 100vh;
+  width: 100%;
+}
+.adminsidebar-logoutbtn{
+  color: white;
+  background-color: rgba(0, 0, 0, 0.33);
+  border: none;
+  height: 40px;
+  width: 120px;
+  border-radius: 5px;
+}
+.adminsidebar-background-color{
+  padding-top: 150px;
 }
 .topimg{
   width: 100%;
