@@ -85,8 +85,6 @@ const CreatorLogin = async (req, res) => {
   }
 };
 
-
-
 const viewCreators = (req, res) => {
   CreatorSchema.find().exec()
     .then(data => {

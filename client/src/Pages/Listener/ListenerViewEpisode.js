@@ -258,6 +258,11 @@ const ViewpodcastByID=()=>{
             ) : (
               <h6 className="text-center text-success">currently no episode available</h6>)}
           </div>
+          <div className="text-center mt-5 pt-5">
+            <Link to='/listenerexam'>
+              <button className="listener-view-episode-attendbtn mt-5">Attend Exam</button>
+            </Link>
+          </div>
         </div>
 
       </div>
