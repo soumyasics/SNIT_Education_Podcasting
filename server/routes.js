@@ -8,6 +8,10 @@ const admin=require('./Admin/AdminControl')
 const subscriptionController=require('./Listener/Subscriptions/subscriptionController')
 const episode=require('./Creator/CreatorEpisodeController')
 const listenerreview=require('./Listener/Review/reviewController')
+const cordinator=require('./ExamCordinator/cordinatorController')
+const question=require('./ExamCordinator/questionController')
+
+
 //Listeners
 router.post('/listenerLogin',listener.ListenerLogin)
 router.post('/listenerregister',listener.upload,listener.ListenerRegister)
@@ -72,6 +76,22 @@ router.post('/viewsubscriptions',subscriptionController.Subcsriptions)
 router.post('/listenerreview',listenerreview.listenerReview)
 router.post('/getreviewodpodcast',listenerreview.getreviewodpodcast)
 router.post('/getReviewaById',listenerreview.getCreatorReview)
+
+
+
+
+//cordinator
+router.post('/cordinatorLogin',cordinator.cordinatorLogin)
+router.post('/addCordinator',cordinator.addCordinator)
+router.post('/editCordinator',cordinator.editCordinator)
+
+router.post('/createQuestion', question.createQuestion);
+router.post('/getQuestionByCreatorId/:id', question.getQuestionByCreatorId);
+router.post('/getQuestionByPodcastId/:id', question.getQuestionByPodcastId);
+router.post('/getQuestionById/:id', question.getQuestionById);
+router.post('/deleteQuestion/:id', question.deleteQuestion);
+router.post('/getAllQuestions', question.getAllQuestions);
+router.post('/updateQuestion/:id', question.updateQuestion);
 
 
 module.exports=router
