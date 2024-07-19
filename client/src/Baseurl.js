@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
 
-  baseURL: 'http://localhost:3000/educational_podcast', 
+  baseURL: 'http://localhost:4030/educational_podcast_api', 
   // baseURL: "http://hybrid.srishticampus.in/educational_podcast_api/",
 
   headers: {

@@ -8,7 +8,7 @@ import axiosInstance from "../../Baseurl";
 import ViewReview from "./ViewReview";
 import { useNavigate } from "react-router-dom";
 
-function CreatorNavbar({url}) {
+function CreatorNavbar1({url}) {
 
   const [creatornav, setCreatornav] = useState("");
 
@@ -75,5 +75,5 @@ function CreatorNavbar({url}) {
   );
 }
 
-export default CreatorNavbar;
+export default CreatorNavbar1;
 // {`${url}/${data.image.filename}`}

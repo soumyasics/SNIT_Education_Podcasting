@@ -6,9 +6,29 @@ import "../Listener/listenernav.css";
 import Nav from "react-bootstrap/Nav";
 import axiosInstance from "../../Baseurl";
 import { useNavigate,Link } from "react-router-dom";
+import image from '../../Assest/Group 2151.png'
+import { Dropdown } from "react-bootstrap";
 
 function CreatorNavbar({url}) {
   const [creatornav, setCreatornav] = useState("");
+
+  const navigate=useNavigate();
+
+  const addquestion = () => {
+    navigate("/createraddquestion")
+  }
+
+  const viewquestion = () => {
+    navigate("/createrviewquestion")
+  }
+
+  const ExamQuestionStatus = () => {
+    navigate("/createrexamquestionstatus")
+  }
+
+  const viewreport = () => {
+    navigate("/createrviewreport")
+  }
 
   useEffect(() => {
     axiosInstance
@@ -44,32 +64,47 @@ function CreatorNavbar({url}) {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Link
-              to="/creatorhome"
+              to="/creatorhomepage"
               className="landingpage_links text-decoration-none me-5"
               id="landingpage_links_hover"
             >
-              Home
+              <b>Home</b>
             </Link>
+            <Dropdown className=''>
+              <Dropdown.Toggle variant="white" 
+              style={{border:'none'}} 
+              className="landingpage_links text-decoration-none" 
+              id="landingpage_links_hover">
+                <b>Exam</b>
+              </Dropdown.Toggle>
+                <Dropdown.Menu >
+                  <Dropdown.Item onClick={addquestion}>Add Question</Dropdown.Item>
+                  <Dropdown.Item onClick={viewquestion}>View Question</Dropdown.Item>
+                  <Dropdown.Item onClick={ExamQuestionStatus}>Question Status</Dropdown.Item>
+                  <Dropdown.Item onClick={viewreport}>Exam Report</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            
             <Link
               to={`/subscription`}
-              className="landingpage_links text-decoration-none me-5"
+              className="landingpage_links text-decoration-none me-5 ms-3"
               id="landingpage_links_hover"
             >
-              Subscribers
+              <b>Subscribers</b>
             </Link>
-            <Link
+            {/* <Link
               className="landingpage_links text-decoration-none me-5"
               id="landingpage_links_hover"
               to={`/viewreview/${creatorid}`}
             >
               Reviews
-            </Link>
+            </Link> */}
             <Link class="nav-link text-decoration-none" to="/creatorprofile">
               <div className="circular-img">
                 <img
-                  src={url+creatornav}
+                  src={url + creatornav}
                   alt="img"
-                  className="profileimg"
+                  className="creater-navbar-img"
                 ></img>
               </div>
             </Link>
