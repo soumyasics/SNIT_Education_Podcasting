@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './AdminExamCoordinator.css'
 import AdminSidebar from '../Admin/AdminSidebar'
 import { useNavigate } from 'react-router-dom'
+import axiosInstance from '../../Baseurl';
 function AdminExamCoordinatorLogin() {
 
     const navigate=useNavigate();
@@ -60,11 +61,25 @@ function AdminExamCoordinatorLogin() {
         errors.password = formValidating("Password",data.password);
         console.log(data);
         setErrors(errors);
+
+        axiosInstance.post(`/addCordinator`,data)
+       
+        .then((res) => {
+            console.log(res);
+            if(res.data.status === 200){
+                alert(res.data.msg)
+                navigate("/adminexamcoordinateview")
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            alert("error")
+        })
     }
 
-    const handleexamcoordinatorview = () => {
-        navigate("/adminexamcoordinateedit")
-    }
+    // const handleexamcoordinatorview = () => {
+    //     navigate("/adminexamcoordinateedit")
+    // }
 
   return (
     <div className='row'>
@@ -105,7 +120,7 @@ function AdminExamCoordinatorLogin() {
                                 {errors.password && <span className='text-danger'>{errors.password}</span>}
                             </div>
                             <div className='text-center mt-5'>
-                                <button className='exam-coordinate-login-createbtn' onClick={handleexamcoordinatorview}>Create</button>
+                                <button className='exam-coordinate-login-createbtn'onClick={handleSubmit} >Create</button>
                             </div>
                         </div>
                         <div className='col-8 exam-coordinate-login-img'></div>

@@ -49,7 +49,7 @@ function AdminExamCoordinateView() {
                                         <label>:</label>
                                     </div>
                                     <div className='col-8'>
-                                        <label>sharik@gmail.com</label>
+                                        <label>{data.email}</label>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +62,7 @@ function AdminExamCoordinateView() {
                                         <label>:</label>
                                     </div>
                                     <div className='col-8'>
-                                        <label>Sharik@123</label>
+                                        <label>{data.password}</label>
                                     </div>
                                 </div>
                                 

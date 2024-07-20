@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import AddQuestion1 from './AddQuestion1'
 import { useNavigate } from 'react-router-dom'
+import axiosInstance from '../../Baseurl'
 
 function AddQuestion() {
 
     const navigate=useNavigate()
 
+    const creatorid = localStorage.getItem("creatorid")
+    
     const[data,setData]=useState({
         select:"",
         question:"",
@@ -70,6 +73,19 @@ function AddQuestion() {
         console.log(data);
         setErrors(errors);
 
+        axiosInstance.post(`createQuestion`,data)
+        
+        .then((res) => {
+            console.log(res);
+            if(res.data.status == 200 ){
+                alert("Added Successfully")
+                console.log(res);
+            }
+        })
+        .catch((err) => {
+            alert("error")
+            console.log(err);
+        })
         // navigate("/createrviewquestion")
     }
   return (
@@ -78,7 +94,11 @@ function AddQuestion() {
             <h3 className='add-question-h3'>Add Questions</h3>
         </div>
         <div className='container mt-5 '>
-            <select className='add-question-select ps-3'>
+            <select className='add-question-select ps-3'
+            value={data.select}
+            name='select'
+            onChange={handleChange}
+            >
                 <option className='add-question-option'>Select PodCast</option>
                 <option className='add-question-option'>Python</option>
                 <option className='add-question-option'>UI/UX</option>
@@ -92,6 +112,9 @@ function AddQuestion() {
             <input type='text'
             className='add-question-text ms-3 ps-3'
             placeholder='Enter the Question'
+            value={data.question}
+            name='question'
+            onChange={handleChange}
             />
             {errors.question && <span className='text-danger ms-5 ps-3'>{errors.question}</span>}
             <div>
@@ -99,6 +122,9 @@ function AddQuestion() {
                 <input type='text'
                 className='add-question-optiontextbox ms-3 ps-3'
                 placeholder='Option'
+                value={data.option1}
+                name='option1'
+                onChange={handleChange}
                 />
             </div>
             {errors.option1 && <span className='text-danger  ms-5 ps-3'>{errors.option1}</span>}
@@ -107,6 +133,9 @@ function AddQuestion() {
                 <input type='text'
                 className='add-question-optiontextbox ms-3 ps-3'
                 placeholder='Option'
+                value={data.option2}
+                name='option2'
+                onChange={handleChange}
                 />
             </div>
             {errors.option2 && <span className='text-danger ms-5 ps-3'>{errors.option2}</span>}
@@ -115,6 +144,9 @@ function AddQuestion() {
                 <input type='text'
                 className='add-question-optiontextbox ms-3 ps-3'
                 placeholder='Option'
+                value={data.option3}
+                name='option3'
+                onChange={handleChange}
                 />              
             </div>
             {errors.option3 && <span className='text-danger ms-5 ps-3'>{errors.option3}</span>}
@@ -123,11 +155,18 @@ function AddQuestion() {
                 <input type='text'
                 className='add-question-optiontextbox ms-3 ps-3'
                 placeholder='Option'
+                value={data.option4}
+                name='option4'
+                onChange={handleChange}
                 />
             </div>
             {errors.option4 && <span className='text-danger ms-5 ps-3'>{errors.option4}</span>}
             <div className='container mt-5 ms-5 '>
-                <select className='add-question-select ps-3' >
+                <select className='add-question-select ps-3'
+                    value={data.answer}
+                    name='answer'
+                    onChange={handleChange}
+                >
                     <option>Answer</option>
                     <option>A</option>
                     <option>B</option>
@@ -137,7 +176,7 @@ function AddQuestion() {
             </div>  
             {errors.answer && <span className='text-danger  ms-5 ps-3'>{errors.answer}</span>}
         </div>
-        <div className='container mt-5'>
+        {/* <div className='container mt-5'>
             <label className='ms-4 add-question-label me-2'>2.</label>
             <input type='text'
             className='add-question-text ms-3 ps-3'
@@ -236,7 +275,7 @@ function AddQuestion() {
                 </select>
             </div>  
             {errors.answer && <span className='text-danger  ms-5 ps-3'>{errors.answer}</span>}
-        </div>
+        </div> */}
         <div>
              
         </div>

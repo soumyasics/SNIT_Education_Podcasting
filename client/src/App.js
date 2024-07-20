@@ -135,7 +135,7 @@ function App() {
         <Route path="/hide" element={<HidePermanentlyOnClick/>}/>
 
         <Route path='/adminexamcoordinatelogin' element={<AdminExamCoordinatorLogin/>} />
-        <Route path='/adminexamcoordinateedit' element={<AdminExamCoordinateView/>} />
+        <Route path='/adminexamcoordinateview' element={<AdminExamCoordinateView/>} />
         <Route path='/adminexamcoordinatesave' element={<AdminExamCoordinatorEdit/>} />
 
         <Route path='/examcoordinatelogin' element={<ExamCordinatorLogin/>} />
