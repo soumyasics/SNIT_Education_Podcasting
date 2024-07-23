@@ -56,8 +56,8 @@ const addCordinator = (req, res) => {
 
 const editCordinator=(req,res)=>{
 
-    cordinator.findByOneAndUpdate({userRole:'cordinator'},{
-      
+  console.log(req.body);
+    cordinator.findOneAndUpdate({userRole:'cordinator'},{
       email: req.body.email,
      password:req.body.password
       })
@@ -76,7 +76,43 @@ const editCordinator=(req,res)=>{
   }
 
 
+  const viewCordinator=(req,res)=>{
+
+    cordinator.findOne()
+  .exec().then(data=>{
+    res.json({
+        status:200,
+        data:data
+    })
+  }).catch(err=>{
+    res.json({
+        status:500,
+        msg:"Data not Updated",
+        Error:err
+    })
+  })
+  }
+
+
+  const deleteCordinator=(req,res)=>{
+
+    cordinator.findOneAndDelete({userRole:'cordinator'})
+  .exec().then(data=>{
+    res.json({
+        status:200,
+        data:data
+    })
+  }).catch(err=>{
+    res.json({
+        status:500,
+        msg:"Data not Updated",
+        Error:err
+    })
+  })
+  }
+
+
   module.exports={addCordinator,
     cordinatorLogin,
-    editCordinator
+    editCordinator,viewCordinator,deleteCordinator
   }
