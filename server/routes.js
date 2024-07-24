@@ -84,6 +84,8 @@ router.post('/getReviewaById',listenerreview.getCreatorReview)
 router.post('/cordinatorLogin',cordinator.cordinatorLogin)
 router.post('/addCordinator',cordinator.addCordinator)
 router.post('/editCordinator',cordinator.editCordinator)
+router.post('/viewCordinator',cordinator.viewCordinator)
+router.post('/deleteCordinator',cordinator.deleteCordinator)
 
 router.post('/createQuestion', question.createQuestion);
 router.post('/getQuestionByCreatorId/:id', question.getQuestionByCreatorId);

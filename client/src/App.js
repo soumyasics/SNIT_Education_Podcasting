@@ -98,17 +98,17 @@ function App() {
         
         <Route path="/creatorlogin" element={[<LandingNav props={{ value: "creatorlanding" }} />, <CreatorLogin />, <Footer />]} />
         <Route path='/creatorregister' element={[<LandingNav props={{ value: "creatorlanding" }} />, <CreatorRegister />, <Footer />]} />
-        <Route path="/creatorhomepage" element={[<CreatorNavbar/>,<CreatorHomePage/>,<Footer/>]} />
+        <Route path="/creatorhomepage" element={[<CreatorNavbar url={url} />,<CreatorHomePage/>,<Footer/>]} />
         <Route path='/creatorsubscription' element={[<CreatorNavbar url={url} />, <CreatorSubscription />, <Footer />]} />
         <Route path='/creatorprofile' element={[<CreatorNavbar url={url} />, <CreatorProfile url={url} />, <CreatorPodcastList data={{ url: url, role: 'creator' }} />, <Footer />]} />
         <Route path="/creatorforgotpassword" element={[<LandingNav props={{ value: "creatorlanding" }} />, <CreatorForgot />, <Footer />]} />
-        <Route path="/createraddquestion" element={[<CreatorNavbar/>,<AddQuestion/>,<Footer/>]} />
+        <Route path="/createraddquestion" element={[<CreatorNavbar url={url}/>,<AddQuestion/>,<Footer/>]} />
         <Route path="/createraddquestion1" element={<AddQuestion1/>} />
-        <Route path="/createrviewquestion" element={[<CreatorNavbar/>,<ViewQuestion/>,<Footer/>]} />
-        <Route path="/createreditquestion" element={[<CreatorNavbar/>,<EditQuestions/>,<Footer/>]} />
-        <Route path="/createrexamquestionstatus" element={[<CreatorNavbar/>,<ExamQuestionStatus/>,<Footer/>]} />
-        <Route path="/createrviewreport" element={[<CreatorNavbar/>,<ViewReport/>,<Footer/>]} />
-        <Route path="/createrviewreportdetail" element={[<CreatorNavbar/>,<ExamReportDetail/>,<Footer/>]} />
+        <Route path="/createrviewquestion" element={[<CreatorNavbar url={url}/>,<ViewQuestion/>,<Footer/>]} />
+        <Route path="/createreditquestion" element={[<CreatorNavbar url={url}/>,<EditQuestions/>,<Footer/>]} />
+        <Route path="/createrexamquestionstatus" element={[<CreatorNavbar url={url}/>,<ExamQuestionStatus/>,<Footer/>]} />
+        <Route path="/createrviewreport" element={[<CreatorNavbar url={url}/>,<ViewReport/>,<Footer/>]} />
+        <Route path="/createrviewreportdetail" element={[<CreatorNavbar url={url}/>,<ExamReportDetail/>,<Footer/>]} />
 
 
         <Route path='/creatorredit' element={[<CreatorNavbar url={url} />, <CreatorProfileEdit />, <Footer />]} />
@@ -119,7 +119,7 @@ function App() {
 
         <Route path="/adminhome" element={[<AdminLandingPage />, <Footer />]} />
         <Route path="/adminlogin" element={<AdminLogin />} />
-        <Route path="/admindashboard" element={[<AdminDashboard />, <ListenerList url={url} />, <Footer />]} />
+        <Route path="/admindashboard" element={[<AdminDashboard url={url} />, <Footer />]} />
         <Route path="/paymentform/:id" element={<Paymentform />} />
         <Route path="/listenerlist" element={<ListenerList url={url} />} />
         <Route path="/creatorlist" element={<CreatorList url={url} />} />

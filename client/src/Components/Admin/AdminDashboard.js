@@ -4,9 +4,10 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Sidebar from './AdminSidebar';
 import axiosInstance from "../../Baseurl";
+import ListenerList from "../../Pages/Admin/ListenerList";
 
 
-function AdminDashboard() {
+function AdminDashboard({url}) {
   const [ListenerCount, setListenerCount] = useState(0);
   const [creatorCount, setCreatorCount] = useState(0);
   const [podcastcount, setPodcastCount] = useState(0);
@@ -75,6 +76,7 @@ function AdminDashboard() {
               </div>
             </div>
             <div>
+            <ListenerList url={url} />
             </div>
           </div>
 
