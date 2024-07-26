@@ -91,8 +91,8 @@ function App() {
         <Route path='/listenerWhishlist' element={[<ListenerMainNavbar url={url} />, <ListenerWhishlist url={url}/>, <Footer />]} />
         <Route path='/listenerProfile' element={[<ListenerMainNavbar url={url} />, <ListenerProfile url={url} />, <Footer />]} />
         <Route path='/listenersubscription' element={[<ListenerMainNavbar url={url} />, <ListenerSubscription data={{ url: url, role: 'listener' }} />, <Footer />]} />
-        <Route path="/listenerexamreport" element={[<ListenerMainNavbar/>,<ListenerReport/>,<Footer/>]} />
-        <Route path="/listenerexam" element={[<ListenerMainNavbar/>,<ListenerExam/>,<Footer/>]} />
+        <Route path="/listenerexamreport" element={[<ListenerMainNavbar url={url}/>,<ListenerReport/>,<Footer/>]} />
+        <Route path="/listenerexam" element={[<ListenerMainNavbar url={url}/>,<ListenerExam/>,<Footer/>]} />
 
 
         
@@ -104,7 +104,7 @@ function App() {
         <Route path="/creatorforgotpassword" element={[<LandingNav props={{ value: "creatorlanding" }} />, <CreatorForgot />, <Footer />]} />
         <Route path="/createraddquestion" element={[<CreatorNavbar url={url}/>,<AddQuestion/>,<Footer/>]} />
         <Route path="/createraddquestion1" element={<AddQuestion1/>} />
-        <Route path="/createrviewquestion" element={[<CreatorNavbar url={url}/>,<ViewQuestion/>,<Footer/>]} />
+        <Route path="/createrviewquestion" elemecreatorprofilent={[<CreatorNavbar url={url}/>,<ViewQuestion/>,<Footer/>]} />
         <Route path="/createreditquestion" element={[<CreatorNavbar url={url}/>,<EditQuestions/>,<Footer/>]} />
         <Route path="/createrexamquestionstatus" element={[<CreatorNavbar url={url}/>,<ExamQuestionStatus/>,<Footer/>]} />
         <Route path="/createrviewreport" element={[<CreatorNavbar url={url}/>,<ViewReport/>,<Footer/>]} />

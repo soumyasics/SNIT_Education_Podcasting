@@ -2,6 +2,7 @@ const Question = require('./QuestionSchema');
 
 // Create a new question
 const createQuestion = async (req, res) => {
+  console.log(req.body);
   try {
     const { select, question, option1, option2, option3, option4, answer, creatorId, podcastId } = req.body;
 
