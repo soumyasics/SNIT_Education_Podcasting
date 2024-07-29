@@ -10,6 +10,7 @@ import { BsPersonFillUp } from "react-icons/bs";
 import { IoLogoYoutube } from "react-icons/io";
 import { FaGraduationCap } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
+
 function AdminSidebar() {
 const navigate=useNavigate()
 
@@ -27,7 +28,7 @@ const navigate=useNavigate()
   
   return (
     <div className="sidebar">
-    <div className=" adminsidebar-background-color">
+    <div className="adminsidebar-background-color">
       <div className="text-center">
         <button className="adminsidebar-logoutbtn">LOG OUT</button>
       </div>
