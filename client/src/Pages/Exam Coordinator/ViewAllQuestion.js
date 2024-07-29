@@ -1,8 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoArrowBackOutline } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
+import axiosInstance from '../../Baseurl'
 
 function ViewAllQuestion() {
+
+    const[data,setData]=useState({})
+
+    useEffect(() => {
+        axiosInstance.post(`getAllQuestions`,data)
+        .then((res) => {
+            if(res.data.status == 200){
+                console.log("View Successfully");
+                setData()
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    })
   return (
     <div >
         <div className='ms-5 ps-1 '>

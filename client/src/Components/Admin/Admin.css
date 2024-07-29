@@ -23,36 +23,48 @@
     background-color: rgba(0, 0, 0, 0.33);
 
 }
-.adminsidebar-background-color{
-  margin-top: 15%;
+.adminsidebar-background-color {
+  /* margin-top: 15%; */
   /* background-color: rgba(0, 0, 0, 0.33); */
   border-radius: 15px;
   padding: 12% 0;
   min-height: 100vh;
   color: black !important;
-
+  transition: background-color 0.3s, color 0.3s;
 }
 
-
-.sidebarelements{
+.sidebarelements {
   margin-left: 50px;
 }
-/* .adminsidebar-link:hover{
-  color: white;
-}
-.adminsidebar-link{
-  color: rgb(0, 0, 0);
-} */
 
-.adminsidebar-background-color:hover{
+.adminsidebar-link {
+  color: black;
+  transition: color 0.3s;
+}
+
+.adminsidebar-link1 {
+  color: black;
+  transition: color 0.3s;
+}
+
+.adminsidebar-background-color:hover {
   background-color: black;
-  color: white;
   min-height: 100vh;
-  
   width: 100%;
   border-radius: 16px;
 }
-.adminsidebar-logoutbtn{
+
+.adminsidebar-background-color:hover .adminsidebar-link {
+  color: white;
+}
+.adminsidebar-link{
+  color: white;
+}
+.adminsidebar-background-color:hover .adminsidebar-link1 {
+  color: white;
+}
+
+.adminsidebar-logoutbtn {
   color: rgb(0, 0, 0);
   /* background-color: rgba(0, 0, 0, 0.33); */
   border: none;
@@ -61,11 +73,10 @@
   border-radius: 5px;
 }
 
-.topimg{
+.topimg {
   width: 100%;
 }
-.adminbg{
+
+.adminbg {
   background-image: url("../../Assest/Group\ 2174.png");
 }
-
-

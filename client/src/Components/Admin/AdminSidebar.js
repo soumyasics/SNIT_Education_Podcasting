@@ -29,42 +29,42 @@ const navigate=useNavigate()
   return (
     <div className="sidebar">
     <div className="adminsidebar-background-color">
-      <div className="text-center">
+      <div className="text-center mt-5">
         <button className="adminsidebar-logoutbtn">LOG OUT</button>
       </div>
       <div className="sidebarelements mt-5 pt-3">
         {" "}
-        <Link to="/admindashboard"><IoHomeSharp className="adminsidebar-link" style={{fontSize:"25"}}/><label className="adminsidebar-link ms-2">Dashboard</label></Link>
+        <Link to="/admindashboard"><IoHomeSharp className="adminsidebar-link1" style={{fontSize:"25"}}/><label className="adminsidebar-link ms-2">Dashboard</label></Link>
       </div>
 
       <div className="sidebarelements mt-4">
         {" "}
-        <Link to="/podcastlist"><FaMicrophone className="adminsidebar-link" style={{fontSize:"25"}}/><label className="adminsidebar-link ms-2">Podcasts</label></Link>
+        <Link to="/podcastlist"><FaMicrophone className="adminsidebar-link1" style={{fontSize:"25"}}/><label className="adminsidebar-link ms-2">Podcasts</label></Link>
       </div>
 
       <div className="sidebarelements mt-4">
         {" "}
-        <Link to="/creatorlist"><HiUsers className="adminsidebar-link" style={{fontSize:"25"}}/><label className="adminsidebar-link ms-2">Users</label></Link>
+        <Link to="/creatorlist"><HiUsers className="adminsidebar-link1" style={{fontSize:"25"}}/><label className="adminsidebar-link ms-2">Users</label></Link>
       </div>
 
       <div className="sidebarelements mt-4">
         {" "}
-        <Link to=""><BsPersonFillUp className="adminsidebar-link" style={{fontSize:"25"}}/><label className="adminsidebar-link ms-2">Creators</label></Link>
+        <Link to=""><BsPersonFillUp className="adminsidebar-link1" style={{fontSize:"25"}}/><label className="adminsidebar-link ms-2">Creators</label></Link>
       </div>
 
       <div className="sidebarelements mt-4">
         {" "}
-        <Link to="/subscriptionList"><MdVideoLibrary className="adminsidebar-link" style={{fontSize:"25"}} /><label className="adminsidebar-link ms-2">Subcribers</label></Link>
+        <Link to="/subscriptionList"><MdVideoLibrary className="adminsidebar-link1" style={{fontSize:"25"}} /><label className="adminsidebar-link ms-2">Subcribers</label></Link>
       </div>
 
       <div className="sidebarelements mt-4" onClick={handleexamcoordinator}>
         {" "}
-        <Link to=""><FaGraduationCap className="adminsidebar-link" style={{fontSize:"25"}} /><label className="adminsidebar-link ms-2">Exam Coordinator</label></Link>
+        <Link to=""><FaGraduationCap className="adminsidebar-link1" style={{fontSize:"25"}} /><label className="adminsidebar-link ms-2">Exam Coordinator</label></Link>
       </div>
 
       <div className="sidebarelements mt-4">
         {" "}
-        <Link to=""><IoSearch className="adminsidebar-link" style={{fontSize:"25"}} /><label className="adminsidebar-link ms-2">Search</label></Link>
+        <Link to=""><IoSearch className="adminsidebar-link1" style={{fontSize:"25"}} /><label className="adminsidebar-link ms-2">Search</label></Link>
       </div>
       
 
