@@ -24,6 +24,14 @@ function EditQuestions() {
         option4:"",
         answer:"",
     })
+    const[datas,setDatas]=useState([])
+    const [select, setSelect] = useState('');
+    const listenerid = localStorage.getItem("listenerid")
+    const handleSelect = (e) => {
+        const { name, value } = e.target;
+        setSelect(value);
+    };
+
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -78,12 +86,14 @@ function EditQuestions() {
             <h3 className='add-question-h3'>Edit Questions</h3>
         </div>
         <div className='container mt-5 '>
-            <select className='add-question-select ps-3'>
-                <option className='add-question-option'>Select PodCast</option>
-                <option className='add-question-option'>Python</option>
-                <option className='add-question-option'>UI/UX</option>
-                <option className='add-question-option'>Java</option>
-                <option className='add-question-option'>Mern</option>
+            <select 
+            className='add-question-select ps-3'
+            name='select'
+            onChange={handleSelect}
+            >
+                {datas.map((item) => (
+                    <option>{item.podcastname}</option>
+                ))}
             </select>
         </div>
         {errors.select && <span className='text-danger  ms-5 ps-5'>{errors.select}</span>}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 function ViewQuestion() {
@@ -8,19 +8,30 @@ function ViewQuestion() {
     const handledit = () => {
         navigate('/createreditquestion')
     }
+
+    const[data,setData]=useState([]);
+    const [select, setSelect] = useState('');
+    const listenerid = localStorage.getItem("listenerid")
+    const handleSelect = (e) => {
+        const { name, value } = e.target;
+        setSelect(value);
+    };
+
   return (
     <div className='container'>
         <div className='text-center'>
             <h3 className='add-question-h3'>Python</h3>
         </div>
         <div className=' mt-5 ms-5'>
-            <select className='add-question-select ps-3'>
-                <option className='add-question-option'>Select PodCast</option>
-                <option className='add-question-option'>Python</option>
-                <option className='add-question-option'>UI/UX</option>
-                <option className='add-question-option'>Java</option>
-                <option className='add-question-option'>Mern</option>
-            </select>
+        <select 
+        className='add-question-select ps-3'
+        name='select'
+        onChange={handleSelect}
+        >
+            {data.map((item) => (
+                    <option>{item.podcastname}</option>
+            ))}
+        </select>
         </div>
         <div className=''>
             <div className='ms-5 mt-5'>
