@@ -5,6 +5,7 @@ import Card from "react-bootstrap/Card";
 import Sidebar from './AdminSidebar';
 import axiosInstance from "../../Baseurl";
 import ListenerList from "../../Pages/Admin/ListenerList";
+import AdminSidebar from "./AdminSidebar";
 
 
 function AdminDashboard({url}) {
@@ -53,10 +54,13 @@ function AdminDashboard({url}) {
   }, [])
   return (
     <div className="adminbg" >
-      <img src={topimg} alt="img" className="topimg"></img>
       <div className="row ">
-        <div className="col-2"><Sidebar /></div>
-        <div className="col-8 text-center m-5"><h4 className="m-4">podcast statistics</h4>
+        <div className="col-2">
+          <AdminSidebar />
+        </div>
+        <div className="col-9 text-center m-5">
+          <img src={topimg} alt="img" className=" img-fluid"></img>
+          <h4 className="m-4">podcast statistics</h4>
           <div className="container">
             <div className="adminbg row">
               <div className="col-4">
