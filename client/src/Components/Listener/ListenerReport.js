@@ -1,15 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function ListenerReport() {
+
+    const[data,setData]=useState([]);
+    const [select, setSelect] = useState('');
+    const listenerid = localStorage.getItem("listenerid")
+    const handleSelect = (e) => {
+        const { name, value } = e.target;
+        setSelect(value);
+    };
+
   return (
-    <div>
+    <div>  
         <div className='container'>
-            <select className='add-question-select ps-3'>
-                <option>Select PodCast</option>
-                <option>Sharik - Python</option>
+            <select 
+            className='add-question-select ps-3'
+            name='select'
+            onChange={handleSelect}
+            >
+                {data.map((item) => (
+                    <option>{item.podcastname}</option>
+                ))}
+                
+                {/* <option>Sharik - Python</option>
                 <option>Josna - Mern</option>
                 <option>Ahana - Mean</option>
-                <option>Ahan - Java</option>
+                <option>Ahan - Java</option> */}
             </select>
         </div>
         <div className='row container ms-5 ps-5'>
