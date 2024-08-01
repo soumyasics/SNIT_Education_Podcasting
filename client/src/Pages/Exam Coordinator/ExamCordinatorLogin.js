@@ -107,14 +107,7 @@ function ExamCordinatorLogin() {
                   </div>
                   {errors.password && <span className='text-danger'>{errors.password}</span>}
               </div>
-              <div className='text-center'>
-                  <div className='mt-4'>
-                    <input type='text'
-                    className='examcoordinator-login-textbox ps-3'
-                    placeholder='Enter Captcha'
-                    />
-                  </div>
-              </div>
+              
               <div className='text-center mt-4'>
                 <button className='examcoordinator-login-loginbtn ' onClick={handleSubmit}>Login</button>
               </div>

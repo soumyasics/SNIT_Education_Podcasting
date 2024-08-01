@@ -4,7 +4,13 @@ const Question = require('./QuestionSchema');
 const createQuestion = async (req, res) => {
   console.log(req.body);
   try {
-    const { select, question, option1, option2, option3, option4, answer, creatorId, podcastId } = req.body;
+    const { select, question, option1, option2, option3, option4, answer, creatorId, podcastId, status = 'Pending' } = req.body;
+
+    // Check if a question already exists for the selected podcast
+    const existingQuestion = await Question.findOne({ podcastId });
+    if (existingQuestion) {
+      return res.status(400).json({ error: 'A question set already exists for this podcast' });
+    }
 
     const newQuestion = new Question({
       select,
@@ -15,7 +21,8 @@ const createQuestion = async (req, res) => {
       option4,
       answer,
       creatorId,
-      podcastId
+      podcastId,
+      status
     });
 
     const savedQuestion = await newQuestion.save();
@@ -93,7 +100,7 @@ const deleteQuestion = async (req, res) => {
 const getQuestionByPodcastId = async (req, res) => {
     try {
       const { id } = req.params;
-      const question = await Question.find({podcastId:id});
+      const question = await Question.find({podcastId:id}).populate("podcastId creatorId")
       if (!question) {
         return res.status(404).json({ error: 'Question not found' });
       }
@@ -107,7 +114,7 @@ const getQuestionByPodcastId = async (req, res) => {
 const getQuestionByCreatorId = async (req, res) => {
     try {
       const { id } = req.params;
-      const question = await Question.find({creatorId:id});
+      const question = await Question.find({creatorId:id}).populate("podcastId creatorId")
       if (!question) {
         return res.status(404).json({ error: 'Question not found' });
       }
