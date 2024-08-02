@@ -49,12 +49,10 @@ const getQuestionById = async (req, res) => {
 const updateQuestion = async (req, res) => {
   try {
     const { id } = req.params;
-    const { select, question, option1, option2, option3, option4, answer, creatorId, podcastId } = req.body;
-
+    const questionData = req.body;
     const updatedQuestion = await Question.findByIdAndUpdate(
       id,
-      { select, question, option1, option2, option3, option4, answer, creatorId, podcastId },
-      { new: true }
+     questionData
     );
 
     if (!updatedQuestion) {
