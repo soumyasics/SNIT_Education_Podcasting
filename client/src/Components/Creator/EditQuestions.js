@@ -3,20 +3,46 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../Baseurl";
 
 function EditQuestions() {
-  const [data, setData] = useState([]);
   const navigate = useNavigate();
-  const [questions, setQuestions] = useState([{
-    select: "",
-    question: "",
-    option1: "",
-    option2: "",
-    option3: "",
-    option4: "",
-    answer: "",
-  }]);
+  const [data, setData] = useState([]);
+  const [select, setSelect] = useState("");
+  const [questions, setQuestions] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState({});
-  const [select, setSelect] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleEdit = () => {
+    navigate("/createreditquestion");
+  };
+
+  const handleSelect = (e) => {
+    const podcastName = e.target.value;
+    setSelect(podcastName);
+
+    const selectedPodcast = data.find(
+      (podcast) => podcast.podcastname === podcastName
+    );
+    if (selectedPodcast) {
+      axiosInstance
+        .post(`/getQuestionByPodcastId/${selectedPodcast._id}`)
+        .then((result) => {
+          if (result.data.length > 0) {
+            setQuestions(result.data);
+            setErrorMessage("");
+          } else {
+            setQuestions([]);
+            setErrorMessage("No questions added for this podcast");
+          }
+        })
+        .catch((err) => {
+          if (err.response && err.response.status === 404) {
+            setErrorMessage("No questions found for the selected podcast");
+          } else {
+            setErrorMessage("An error occurred while fetching questions");
+          }
+          setQuestions([]);
+        });
+    }
+  };
 
   useEffect(() => {
     axiosInstance
@@ -24,117 +50,59 @@ function EditQuestions() {
         id: localStorage.getItem("creatorid"),
       })
       .then((result) => {
-        setData(result.data.data);
-        if (result.data.data.length > 0) {
-          setSelect(result.data.data[0].podcastname);
-          fetchQuestions(result.data.data[0]._id);
+        const podcasts = result.data.data;
+        setData(podcasts);
+
+        if (podcasts.length > 0) {
+          const firstPodcast = podcasts[0];
+          setSelect(firstPodcast.podcastname);
+
+          axiosInstance
+            .post(`/getQuestionByPodcastId/${firstPodcast._id}`)
+            .then((result) => {
+              if (result.data.length > 0) {
+                setQuestions(result.data);
+                setErrorMessage("");
+              } else {
+                setQuestions([]);
+                setErrorMessage("No questions added for this podcast");
+              }
+            })
+            .catch((err) => {
+              if (err.response && err.response.status === 404) {
+                setErrorMessage("No questions found for the selected podcast");
+              } else {
+                setErrorMessage("An error occurred while fetching questions");
+              }
+              setQuestions([]);
+            });
         }
       });
   }, []);
 
-  const fetchQuestions = (podcastId) => {
-    axiosInstance
-      .post(`/getQuestionByPodcastId/${podcastId}`)
-      .then((result) => {
-        if (result.data.length > 0) {
-          setQuestions(result.data);
-          setErrorMessage('');
-        } else {
-          setQuestions([{
-            select: "",
-            question: "",
-            option1: "",
-            option2: "",
-            option3: "",
-            option4: "",
-            answer: "",
-          }]);
-          setErrorMessage('No questions added for this podcast');
-        }
-      })
-      .catch(() => {
-        setErrorMessage('An error occurred while fetching questions');
-      });
-  };
-
   const handleChange = (index, event) => {
     const { name, value } = event.target;
-    const newQuestions = [...questions];
-    newQuestions[index][name] = value;
-    setQuestions(newQuestions);
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [`${index}_${name}`]: "",
-    }));
+    const updatedQuestions = [...questions];
+    updatedQuestions[index] = {
+      ...updatedQuestions[index],
+      [name]: value,
+    };
+    setQuestions(updatedQuestions);
   };
 
-  const handleSelect = (e) => {
-    const podcastName = e.target.value;
-    setSelect(podcastName);
-    const selectedPodcast = data.find(podcast => podcast.podcastname === podcastName);
+  const handleSubmit = () => {
+    const selectedPodcast = data.find(
+      (podcast) => podcast.podcastname === select
+    );
     if (selectedPodcast) {
-      fetchQuestions(selectedPodcast._id);
-    }
-  };
-
-  const validateForm = () => {
-    let formErrors = {};
-    questions.forEach((question, index) => {
-      if (!question.question) formErrors[`${index}_question`] = "Question Required";
-      if (!question.option1) formErrors[`${index}_option1`] = "Option A Required";
-      if (!question.option2) formErrors[`${index}_option2`] = "Option B Required";
-      if (!question.option3) formErrors[`${index}_option3`] = "Option C Required";
-      if (!question.option4) formErrors[`${index}_option4`] = "Option D Required";
-      if (!question.answer) formErrors[`${index}_answer`] = "Answer Required";
-    });
-    return formErrors;
-  };
-
-  const handleAddQuestion = () => {
-    setQuestions([
-      ...questions,
-      {
-        select: "",
-        question: "",
-        option1: "",
-        option2: "",
-        option3: "",
-        option4: "",
-        answer: "",
-      },
-    ]);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formErrors = validateForm();
-    setErrors(formErrors);
-
-    if (Object.keys(formErrors).length === 0) {
-      questions.forEach((question) => {
-        question.select = select;
-        question.creatorId = localStorage.getItem('creatorid');
-        const selectedPodcast = data.find(podcast => podcast.podcastname === question.select);
-        if (selectedPodcast) {
-          question.podcastId = selectedPodcast._id;
-        }
-        axiosInstance
-          .post(`/updateQuestion/${question._id}`, question)
-          .then((res) => {
-            if (res.status === 200) {
-              alert("Updated Successfully");
-              navigate("/createrviewquestion");
-            }
-          })
-          .catch((err) => {
-            if (err.response && err.response.status === 400 && err.response.data.error === 'A question set already exists for this podcast') {
-              setErrorMessage('A question set already exists for this podcast');
-            } else {
-              alert("Error occurred while updating question");
-              console.log(err);
-            }
-          });
-      });
+      axiosInstance
+        .put(`/updateQuestion/${selectedPodcast._id}`, { questions })
+        .then((result) => {
+          alert("Questions updated successfully");
+        })
+        .catch((error) => {
+          setErrorMessage("An error occurred while updating the questions");
+        });
     }
   };
 
@@ -150,7 +118,9 @@ function EditQuestions() {
         value={select}
       >
         {data.map((item) => (
-          <option key={item._id} value={item.podcastname}>{item.podcastname}</option>
+          <option key={item._id} value={item.podcastname}>
+            {item.podcastname}
+          </option>
         ))}
       </select>
       {errorMessage && (
@@ -172,11 +142,6 @@ function EditQuestions() {
               name="question"
               onChange={(e) => handleChange(index, e)}
             />
-            {errors[`${index}_question`] && (
-              <span className="text-danger ms-5 ps-3">
-                {errors[`${index}_question`]}
-              </span>
-            )}
           </div>
 
           <div>
@@ -189,11 +154,6 @@ function EditQuestions() {
               name="option1"
               onChange={(e) => handleChange(index, e)}
             />
-            {errors[`${index}_option1`] && (
-              <span className="text-danger ms-5 ps-3">
-                {errors[`${index}_option1`]}
-              </span>
-            )}
           </div>
 
           <div>
@@ -206,11 +166,6 @@ function EditQuestions() {
               name="option2"
               onChange={(e) => handleChange(index, e)}
             />
-            {errors[`${index}_option2`] && (
-              <span className="text-danger ms-5 ps-3">
-                {errors[`${index}_option2`]}
-              </span>
-            )}
           </div>
 
           <div>
@@ -223,11 +178,6 @@ function EditQuestions() {
               name="option3"
               onChange={(e) => handleChange(index, e)}
             />
-            {errors[`${index}_option3`] && (
-              <span className="text-danger ms-5 ps-3">
-                {errors[`${index}_option3`]}
-              </span>
-            )}
           </div>
 
           <div>
@@ -240,11 +190,6 @@ function EditQuestions() {
               name="option4"
               onChange={(e) => handleChange(index, e)}
             />
-            {errors[`${index}_option4`] && (
-              <span className="text-danger ms-5 ps-3">
-                {errors[`${index}_option4`]}
-              </span>
-            )}
           </div>
 
           <div className="container mt-5 ms-5 ">
@@ -260,19 +205,11 @@ function EditQuestions() {
               <option value="C">C</option>
               <option value="D">D</option>
             </select>
-            {errors[`${index}_answer`] && (
-              <span className="text-danger ms-5 ps-3">
-                {errors[`${index}_answer`]}
-              </span>
-            )}
           </div>
         </div>
       ))}
 
       <div className="text-center mt-4">
-        {/*<button className="add-question-addbtn" onClick={handleAddQuestion}>
-          Add +
-        </button>*/}
         <button className="add-question-savebtn ms-3" onClick={handleSubmit}>
           Save
         </button>

@@ -1,47 +1,183 @@
-const Question = require('./QuestionSchema');
+const Question = require("./QuestionSchema");
 
 // Create a new question
 const createQuestion = async (req, res) => {
   console.log(req.body);
   try {
-    const {data} = req.body;
+    const {
+      select,
+      creatorId,
+      podcastId,
+      question1,
+      option11,
+      option12,
+      option13,
+      option14,
+      answer1,
+      question2,
+      option21,
+      option22,
+      option23,
+      option24,
+      answer2,
+      question3,
+      option31,
+      option32,
+      option33,
+      option34,
+      answer3,
+      question4,
+      option41,
+      option42,
+      option43,
+      option44,
+      answer4,
+      question5,
+      option51,
+      option52,
+      option53,
+      option54,
+      answer5,
+      question6,
+      option61,
+      option62,
+      option63,
+      option64,
+      answer6,
+      question7,
+      option71,
+      option72,
+      option73,
+      option74,
+      answer7,
+      question8,
+      option81,
+      option82,
+      option83,
+      option84,
+      answer8,
+      question9,
+      option91,
+      option92,
+      option93,
+      option94,
+      answer9,
+      question10,
+      option101,
+      option102,
+      option103,
+      option104,
+      answer10,
+      status,
+    } = req.body;
 
-    // Check if a question already exists for the selected podcast
     const existingQuestion = await Question.findOne({ podcastId });
     if (existingQuestion) {
-      return res.status(400).json({ error: 'A question set already exists for this podcast' });
+      return res
+        .status(400)
+        .json({ error: "A question set already exists for this podcast" });
     }
 
-    const questionData = req.body;
+    const questionData = {
+      select,
+      creatorId,
+      podcastId,
+      question1,
+      option11,
+      option12,
+      option13,
+      option14,
+      answer1,
+      question2,
+      option21,
+      option22,
+      option23,
+      option24,
+      answer2,
+      question3,
+      option31,
+      option32,
+      option33,
+      option34,
+      answer3,
+      question4,
+      option41,
+      option42,
+      option43,
+      option44,
+      answer4,
+      question5,
+      option51,
+      option52,
+      option53,
+      option54,
+      answer5,
+      question6,
+      option61,
+      option62,
+      option63,
+      option64,
+      answer6,
+      question7,
+      option71,
+      option72,
+      option73,
+      option74,
+      answer7,
+      question8,
+      option81,
+      option82,
+      option83,
+      option84,
+      answer8,
+      question9,
+      option91,
+      option92,
+      option93,
+      option94,
+      answer9,
+      question10,
+      option101,
+      option102,
+      option103,
+      option104,
+      answer10,
+      status: status || "Pending",
+    };
+
     const question = new Question(questionData);
-    await question.save();
+    const savedQuestion = await question.save();
     res.status(201).json(savedQuestion);
   } catch (error) {
-    res.status(500).json({ error: 'An error occurred while creating the question' });
+    res
+      .status(500)
+      .json({ error: "An error occurred while creating the question" });
   }
 };
-
 // Get all questions
 const getAllQuestions = async (req, res) => {
   try {
     const questions = await Question.find();
     res.status(200).json(questions);
   } catch (error) {
-    res.status(500).json({ error: 'An error occurred while fetching questions' });
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching questions" });
   }
 };
 
-// Get a single question by ID
 const getQuestionById = async (req, res) => {
   try {
     const { id } = req.params;
     const question = await Question.findById(id);
     if (!question) {
-      return res.status(404).json({ error: 'Question not found' });
+      return res.status(404).json({ error: "Question not found" });
     }
     res.status(200).json(question);
   } catch (error) {
-    res.status(500).json({ error: 'An error occurred while fetching the question' });
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching the question" });
   }
 };
 
@@ -49,19 +185,153 @@ const getQuestionById = async (req, res) => {
 const updateQuestion = async (req, res) => {
   try {
     const { id } = req.params;
-    const questionData = req.body;
+    const {
+      select,
+      question1,
+      option11,
+      option12,
+      option13,
+      option14,
+      answer1,
+      question2,
+      option21,
+      option22,
+      option23,
+      option24,
+      answer2,
+      question3,
+      option31,
+      option32,
+      option33,
+      option34,
+      answer3,
+      question4,
+      option41,
+      option42,
+      option43,
+      option44,
+      answer4,
+      question5,
+      option51,
+      option52,
+      option53,
+      option54,
+      answer5,
+      question6,
+      option61,
+      option62,
+      option63,
+      option64,
+      answer6,
+      question7,
+      option71,
+      option72,
+      option73,
+      option74,
+      answer7,
+      question8,
+      option81,
+      option82,
+      option83,
+      option84,
+      answer8,
+      question9,
+      option91,
+      option92,
+      option93,
+      option94,
+      answer9,
+      question10,
+      option101,
+      option102,
+      option103,
+      option104,
+      answer10,
+      creatorId,
+      podcastId,
+      status,
+    } = req.body;
+
     const updatedQuestion = await Question.findByIdAndUpdate(
       id,
-     questionData
+      {
+        select,
+        question1,
+        option11,
+        option12,
+        option13,
+        option14,
+        answer1,
+        question2,
+        option21,
+        option22,
+        option23,
+        option24,
+        answer2,
+        question3,
+        option31,
+        option32,
+        option33,
+        option34,
+        answer3,
+        question4,
+        option41,
+        option42,
+        option43,
+        option44,
+        answer4,
+        question5,
+        option51,
+        option52,
+        option53,
+        option54,
+        answer5,
+        question6,
+        option61,
+        option62,
+        option63,
+        option64,
+        answer6,
+        question7,
+        option71,
+        option72,
+        option73,
+        option74,
+        answer7,
+        question8,
+        option81,
+        option82,
+        option83,
+        option84,
+        answer8,
+        question9,
+        option91,
+        option92,
+        option93,
+        option94,
+        answer9,
+        question10,
+        option101,
+        option102,
+        option103,
+        option104,
+        answer10,
+        creatorId,
+        podcastId,
+        status,
+      },
+      { new: true }
     );
 
     if (!updatedQuestion) {
-      return res.status(404).json({ error: 'Question not found' });
+      return res.status(404).json({ error: "Question not found" });
     }
 
     res.status(200).json(updatedQuestion);
   } catch (error) {
-    res.status(500).json({ error: 'An error occurred while updating the question' });
+    res
+      .status(500)
+      .json({ error: "An error occurred while updating the question" });
   }
 };
 
@@ -73,43 +343,52 @@ const deleteQuestion = async (req, res) => {
     const deletedQuestion = await Question.findByIdAndDelete(id);
 
     if (!deletedQuestion) {
-      return res.status(404).json({ error: 'Question not found' });
+      return res.status(404).json({ error: "Question not found" });
     }
 
-    res.status(200).json({ message: 'Question deleted successfully' });
+    res.status(200).json({ message: "Question deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: 'An error occurred while deleting the question' });
+    res
+      .status(500)
+      .json({ error: "An error occurred while deleting the question" });
   }
 };
 
-
 // Get a single question by ID
 const getQuestionByPodcastId = async (req, res) => {
-    try {
-      const { id } = req.params;
-      const question = await Question.find({podcastId:id}).populate("podcastId creatorId")
-      if (!question) {
-        return res.status(404).json({ error: 'Question not found' });
-      }
-      res.status(200).json(question);
-    } catch (error) {
-      res.status(500).json({ error: 'An error occurred while fetching the question' });
+  try {
+    const { id } = req.params;
+    const question = await Question.find({ podcastId: id }).populate(
+      "podcastId creatorId"
+    );
+    if (!question) {
+      return res.status(404).json({ error: "Question not found" });
     }
-  };
+    res.status(200).json(question);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching the question" });
+  }
+};
 
 // Get a single question by ID
 const getQuestionByCreatorId = async (req, res) => {
-    try {
-      const { id } = req.params;
-      const question = await Question.find({creatorId:id}).populate("podcastId creatorId")
-      if (!question) {
-        return res.status(404).json({ error: 'Question not found' });
-      }
-      res.status(200).json(question);
-    } catch (error) {
-      res.status(500).json({ error: 'An error occurred while fetching the question' });
+  try {
+    const { id } = req.params;
+    const question = await Question.find({ creatorId: id }).populate(
+      "podcastId creatorId"
+    );
+    if (!question) {
+      return res.status(404).json({ error: "Question not found" });
     }
-  };
+    res.status(200).json(question);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching the question" });
+  }
+};
 module.exports = {
   createQuestion,
   getAllQuestions,
@@ -117,5 +396,5 @@ module.exports = {
   updateQuestion,
   deleteQuestion,
   getQuestionByCreatorId,
-  getQuestionByPodcastId
+  getQuestionByPodcastId,
 };
