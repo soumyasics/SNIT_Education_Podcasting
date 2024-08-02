@@ -4,7 +4,6 @@ const Question = require('./QuestionSchema');
 const createQuestion = async (req, res) => {
   console.log(req.body);
   try {
-    const {data} = req.body;
 
     // Check if a question already exists for the selected podcast
     const existingQuestion = await Question.findOne({ podcastId });
