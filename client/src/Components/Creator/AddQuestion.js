@@ -3,25 +3,31 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../Baseurl";
 
 function AddQuestion() {
-  const [data, setdata] = useState([]);
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
 
-  const creatorid = localStorage.getItem("creatorid");
-
-  const [question, setQuestion] = useState([]);
-  const [questions, setQuestions] = useState([]);
-  //   {
-  //     select: "",
-  //     question: "",
-  //     option1: "",
-  //     option2: "",
-  //     option3: "",
-  //     option4: "",
-  //     answer: "",
-  //   },
-
+  const [questions, setQuestions] = useState([{
+    select: "",
+    question: "",
+    option1: "",
+    option2: "",
+    option3: "",
+    option4: "",
+    answer: "",
+  }]);
   const [errors, setErrors] = useState({});
   const [select, setSelect] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    axiosInstance
+      .post("/getAllPodcastByCreator", {
+        id: localStorage.getItem("creatorid"),
+      })
+      .then((result) => {
+        setData(result.data.data);
+      });
+  }, []);
 
   const handleChange = (index, event) => {
     const { name, value } = event.target;
@@ -35,31 +41,17 @@ function AddQuestion() {
   };
 
   const handleSelect = (e) => {
-    const { name, value } = e.target;
-    setSelect(value);
-  };
-
-  const formValidating = (fieldName, value) => {
-    if (!value.trim()) {
-      return `${fieldName} is required`;
-    }
+    setSelect(e.target.value);
   };
 
   const validateForm = () => {
     let formErrors = {};
     questions.forEach((question, index) => {
-      if (!question.select)
-        formErrors[`${index}_select`] = "Select option Required";
-      if (!question.question)
-        formErrors[`${index}_question`] = "Question Required";
-      if (!question.option1)
-        formErrors[`${index}_option1`] = "Option A Required";
-      if (!question.option2)
-        formErrors[`${index}_option2`] = "Option B Required";
-      if (!question.option3)
-        formErrors[`${index}_option3`] = "Option C Required";
-      if (!question.option4)
-        formErrors[`${index}_option4`] = "Option D Required";
+      if (!question.question) formErrors[`${index}_question`] = "Question Required";
+      if (!question.option1) formErrors[`${index}_option1`] = "Option A Required";
+      if (!question.option2) formErrors[`${index}_option2`] = "Option B Required";
+      if (!question.option3) formErrors[`${index}_option3`] = "Option C Required";
+      if (!question.option4) formErrors[`${index}_option4`] = "Option D Required";
       if (!question.answer) formErrors[`${index}_answer`] = "Answer Required";
     });
     return formErrors;
@@ -80,49 +72,36 @@ function AddQuestion() {
     ]);
   };
 
-  useEffect(() => {
-    axiosInstance
-      .post("/getAllPodcastByCreator", {
-        id: localStorage.getItem("creatorid"),
-      })
-      .then((result) => {
-        setdata(result.data.data, "p");
-      });
-  }, []);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const formErrors = validateForm();
     setErrors(formErrors);
-    console.log(questions);
 
     if (Object.keys(formErrors).length === 0) {
-        console.log("pp");
-
-      for (var i in questions) {
-        var question = questions[i];
+      questions.forEach((question) => {
         question.select = select;
         question.creatorId = localStorage.getItem('creatorid');
-        for (var n in data) {
-            console.log(data[n]);
-            if (data[n].podcastname == question.select) {
-                question.podcastId = data[n]._id
-            }
+        const selectedPodcast = data.find(podcast => podcast.podcastname === question.select);
+        if (selectedPodcast) {
+          question.podcastId = selectedPodcast._id;
         }
         axiosInstance
-          .post(`createQuestion`, question)
+          .post(`/createQuestion`, question)
           .then((res) => {
-            console.log(res);
-            if (res.data.status === 200) {
+            if (res.status === 201) {
               alert("Added Successfully");
-              console.log(res);
+              navigate("/createrviewquestion");
             }
           })
           .catch((err) => {
-            alert("error");
-            console.log(err);
+            if (err.response && err.response.status === 400 && err.response.data.error === 'A question set already exists for this podcast') {
+              setErrorMessage('A question set already exists for this podcast');
+            } else {
+              alert("Error occurred while adding question");
+              console.log(err);
+            }
           });
-      }
+      });
     }
   };
 
@@ -133,15 +112,20 @@ function AddQuestion() {
       </div>
       <select
         className="add-question-select ps-3"
-        // value={}
         name="select"
         onChange={handleSelect}
+        value={select}
       >
+        <option value="">Select Podcast</option>
         {data.map((item) => (
-          <option className="add-question-option">{item.podcastname}</option>
+          <option key={item._id} value={item.podcastname}>{item.podcastname}</option>
         ))}
       </select>
-      {/*{errors[`${}_select`] && <span className='text-danger ms-5 ps-5'>{errors[`${index}_select`]}</span>}*/}
+      {errorMessage && (
+        <div className="alert alert-danger mt-3" role="alert">
+          {errorMessage}
+        </div>
+      )}
       {questions.map((question, index) => (
         <div className="container mt-5" key={index}>
           <div className="mt-5">
@@ -238,11 +222,11 @@ function AddQuestion() {
               name="answer"
               onChange={(e) => handleChange(index, e)}
             >
-              <option>Answer</option>
-              <option>A</option>
-              <option>B</option>
-              <option>C</option>
-              <option>D</option>
+              <option value="">Answer</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
             </select>
             {errors[`${index}_answer`] && (
               <span className="text-danger ms-5 ps-3">

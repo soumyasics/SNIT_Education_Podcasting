@@ -1,72 +1,130 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../Baseurl";
 
 function ViewQuestion() {
+  const navigate = useNavigate();
+  const [data, setData] = useState([]);
+  const [select, setSelect] = useState("");
+  const [questions, setQuestions] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
-    const navigate=useNavigate();
+  const handleEdit = () => {
+    navigate("/createreditquestion");
+  };
 
-    const handledit = () => {
-        navigate('/createreditquestion')
+  const handleSelect = (e) => {
+    const podcastName = e.target.value;
+    setSelect(podcastName);
+
+    const selectedPodcast = data.find(podcast => podcast.podcastname === podcastName);
+    if (selectedPodcast) {
+      axiosInstance
+        .post(`/getQuestionByPodcastId/${selectedPodcast._id}`)
+        .then((result) => {
+          if (result.data.length > 0) {
+            setQuestions(result.data);
+            setErrorMessage("");
+          } else {
+            setQuestions([]);
+            setErrorMessage("No questions added for this podcast");
+          }
+        })
+        .catch((err) => {
+          if (err.response && err.response.status === 404) {
+            setErrorMessage("No questions found for the selected podcast");
+          } else {
+            setErrorMessage("An error occurred while fetching questions");
+          }
+          setQuestions([]);
+        });
     }
+  };
 
-    const[data,setData]=useState([]);
-    const [select, setSelect] = useState('');
-    const listenerid = localStorage.getItem("listenerid")
-    const handleSelect = (e) => {
-        const { name, value } = e.target;
-        setSelect(value);
-    };
+  useEffect(() => {
+    axiosInstance
+      .post("/getAllPodcastByCreator", {
+        id: localStorage.getItem("creatorid"),
+      })
+      .then((result) => {
+        const podcasts = result.data.data;
+        setData(podcasts);
+
+        if (podcasts.length > 0) {
+          const firstPodcast = podcasts[0];
+          setSelect(firstPodcast.podcastname);
+
+          axiosInstance
+            .post(`/getQuestionByPodcastId/${firstPodcast._id}`)
+            .then((result) => {
+              if (result.data.length > 0) {
+                setQuestions(result.data);
+                setErrorMessage("");
+              } else {
+                setQuestions([]);
+                setErrorMessage("No questions added for this podcast");
+              }
+            })
+            .catch((err) => {
+              if (err.response && err.response.status === 404) {
+                setErrorMessage("No questions found for the selected podcast");
+              } else {
+                setErrorMessage("An error occurred while fetching questions");
+              }
+              setQuestions([]);
+            });
+        }
+      });
+  }, []);
 
   return (
-    <div className='container'>
-        <div className='text-center'>
-            <h3 className='add-question-h3'>Python</h3>
-        </div>
-        <div className=' mt-5 ms-5'>
-        <select 
-        className='add-question-select ps-3'
-        name='select'
-        onChange={handleSelect}
+    <div className="container">
+      <div className="text-center">
+        <h3 className="add-question-h3">View Questions</h3>
+      </div>
+      <div className="mt-5 ms-5">
+        <select
+          className="add-question-select ps-3"
+          name="select"
+          onChange={handleSelect}
+          value={select}
         >
-            {data.map((item) => (
-                    <option>{item.podcastname}</option>
-            ))}
+          {data.map((item) => (
+            <option key={item._id} value={item.podcastname}>{item.podcastname}</option>
+          ))}
         </select>
+      </div>
+      {errorMessage && (
+        <div className="alert alert-danger mt-3" role="alert">
+          {errorMessage}
         </div>
-        <div className=''>
-            <div className='ms-5 mt-5'>
-                <h5>Question 1</h5>
-                <p>Which of the following is a mutable data type in Python?</p>
-                <p>A.Tuple</p>
-                <p>B.List</p>
-                <p>C.String</p>
-                <p>D.Integer</p>
-                <p>Answer: B.List</p>
-            </div>
-            <div className='ms-5'>
-                <h5>Question 2</h5>
-                <p>Which of the following is a mutable data type in Python?</p>
-                <p>A.Tuple</p>
-                <p>B.List</p>
-                <p>C.String</p>
-                <p>D.Integer</p>
-                <p>Answer: B.List</p>
-            </div>
-            <div className='ms-5'>
-                <h5>Question 3</h5>
-                <p>Which of the following is a mutable data type in Python?</p>
-                <p>A.Tuple</p>
-                <p>B.List</p>
-                <p>C.String</p>
-                <p>D.Integer</p>
-                <p>Answer: B.List</p>
-            </div>
+      )}
+      <div>
+        {questions?.length > 0 ? questions.map((question, index) => (
+          <div className="ms-5 mt-5" key={index}>
+            <h5>Question {index + 1}</h5>
+            <p>{question.question}</p>
+            <p>A. {question.option1}</p>
+            <p>B. {question.option2}</p>
+            <p>C. {question.option3}</p>
+            <p>D. {question.option4}</p>
+            <p>Answer: {question.answer}</p>
+          </div>
+        )) : (
+          <div className="ms-5 mt-5">
+            <h5>No questions added for this podcast</h5>
+          </div>
+        )}
+      </div>
+      {questions?.length > 0 && (
+        <div className="text-center">
+          <button className="view-question-editbtn" onClick={handleEdit}>
+            Edit
+          </button>
         </div>
-        <div className='text-center'>
-            <button className='view-question-editbtn' onClick={handledit}>Edit</button>
-        </div>
+      )}
     </div>
-  )
+  );
 }
 
-export default ViewQuestion
+export default ViewQuestion;
