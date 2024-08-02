@@ -17,6 +17,9 @@ function LandingNav({ props }) {
         <NavDropdown.Item as={Link} to="/creatorlogin">
           Creator Login
         </NavDropdown.Item>
+        <NavDropdown.Item as={Link} to="/examcoordinatelogin">
+        Coordinator Login
+      </NavDropdown.Item>
       </NavDropdown>
     );
   };
