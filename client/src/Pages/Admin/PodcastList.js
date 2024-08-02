@@ -28,9 +28,9 @@ function PodcastList({ url }) {
     }
 
     return (
-        <div className='row mt-5 pt-5 adminbg'>
-            <div className='col-1 mt-5 py-5 px-4'><AdminSidebar /></div>
-            <div className='col-10'>< div style={{
+        <div className='row  adminbg'>
+            <div className='col-2'><AdminSidebar /></div>
+            <div className='col-10 mt-5 pt-5'>< div style={{
                 margin: "8px", padding: "14px",
                 boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
             }}>            <h3 className='text-success'>Podcast List</h3>

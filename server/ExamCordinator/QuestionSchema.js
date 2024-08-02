@@ -38,6 +38,11 @@ const questionSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'creatorsPodcast', 
     required: true
+  },
+  status: {
+    type: String,
+    enum: ['Pending', 'Approved', 'Rejected'],
+    default: 'Pending'
   }
 }, {
   timestamps: true

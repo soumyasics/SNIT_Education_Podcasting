@@ -43,7 +43,7 @@ function CreatorLogin() {
           alert(result.data.message);
           console.log(result.data.id);
 
-          navigate("/creatorhome");
+          navigate("/creatorhomepage");
         } else {
           document.getElementById("alertuser").innerHTML =
             "Invalid CAPTCHA. Please enter the correct text.";

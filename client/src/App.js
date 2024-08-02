@@ -14,7 +14,6 @@ import AdminLandingPage from "./Components/Admin/AdminLandingPage";
 import ListenerWhishlist from "./Components/Listener/ListenerWhishlist";
 import ListenerProfile from "./Components/Listener/ListenerProfile";
 import ListenerSubscription from "./Components/Listener/ListenerSubscription";
-import CreatorHome from "./Components/Creator/CreatorHome";
 import ListenerNav from "./Components/Listener/ListenerNav";
 import CreatorNavbar from "./Components/Creator/CreatorNavbar";
 import AdminLogin from "./Components/Admin/AdminLogin";
@@ -53,6 +52,17 @@ import ViewRequest from "./Pages/Exam Coordinator/ViewRequest";
 import ExamCoordinatorViewQuestion from "./Pages/Exam Coordinator/ExamCoordinatorViewQuestion";
 import Viewall from "./Pages/Exam Coordinator/Viewall";
 import ViewAllQuestion from "./Pages/Exam Coordinator/ViewAllQuestion";
+import AddQuestion from "./Components/Creator/AddQuestion";
+import AddQuestion1 from "./Components/Creator/AddQuestion1";
+import ViewQuestion from "./Components/Creator/ViewQuestion";
+import EditQuestions from "./Components/Creator/EditQuestions";
+import ExamQuestionStatus from "./Components/Creator/ExamQuestionStatus";
+import ViewReport from "./Components/Creator/ViewReport";
+import CreatorHomePage from "./Components/Creator/CreatorHomePage";
+import ListenerMainNavbar from "./Components/Listener/ListenerMainNavbar";
+import ListenerReport from "./Components/Listener/ListenerReport";
+import ListenerExam from "./Pages/Listener/ListenerExam";
+import ExamReportDetail from "./Components/Creator/ExamReportDetail";
 function App() {
 
   const url = 'http://localhost:4030/'
@@ -75,18 +85,31 @@ function App() {
         <Route path='/listenerregister' element={[<LandingNav props={{ value: "listenerlanding" }} />, <ListenerRegister />, <Footer />]} />
         <Route path='/listeneredit' element={[<ListenerNav url={url} />, <ListenerEdit url={url} />, <Footer />]} />
 
-        <Route path="/listenerhome" element={[<ListenerNav url={url} />, <ListenerHome props={{ role: "listenerhome" }} />, <CreatorPodcastList data={{ url: url, role: 'listener' }} />, <Footer />]} />
+        <Route path="/listenerhome" element={[<ListenerMainNavbar url={url} />, <ListenerHome props={{ role: "listenerhome" }} />, <CreatorPodcastList data={{ url: url, role: 'listener' }} />, <Footer />]} />
+        <Route path="/listenermainnavbar" element={[<ListenerMainNavbar url={url}/>]} />
         <Route path="/forgotpassword" element={[<LandingNav props={{ value: "listenerlanding" }} />, <ForgotPassword />, <Footer />]} />
-        <Route path='/listenerWhishlist' element={[<ListenerNav url={url} />, <ListenerWhishlist url={url}/>, <Footer />]} />
-        <Route path='/listenerProfile' element={[<ListenerNav url={url} />, <ListenerProfile url={url} />, <Footer />]} />
-        <Route path='/listenersubscription' element={[<ListenerNav url={url} />, <ListenerSubscription data={{ url: url, role: 'listener' }} />, <Footer />]} />
+        <Route path='/listenerWhishlist' element={[<ListenerMainNavbar url={url} />, <ListenerWhishlist url={url}/>, <Footer />]} />
+        <Route path='/listenerProfile' element={[<ListenerMainNavbar url={url} />, <ListenerProfile url={url} />, <Footer />]} />
+        <Route path='/listenersubscription' element={[<ListenerMainNavbar url={url} />, <ListenerSubscription data={{ url: url, role: 'listener' }} />, <Footer />]} />
+        <Route path="/listenerexamreport" element={[<ListenerMainNavbar url={url}/>,<ListenerReport/>,<Footer/>]} />
+        <Route path="/listenerexam" element={[<ListenerMainNavbar url={url}/>,<ListenerExam/>,<Footer/>]} />
 
+
+        
         <Route path="/creatorlogin" element={[<LandingNav props={{ value: "creatorlanding" }} />, <CreatorLogin />, <Footer />]} />
         <Route path='/creatorregister' element={[<LandingNav props={{ value: "creatorlanding" }} />, <CreatorRegister />, <Footer />]} />
-        <Route path='/creatorhome' element={[<CreatorNavbar url={url} />, <CreatorHome />, <Footer />]} />
+        <Route path="/creatorhomepage" element={[<CreatorNavbar url={url} />,<CreatorHomePage/>,<Footer/>]} />
         <Route path='/creatorsubscription' element={[<CreatorNavbar url={url} />, <CreatorSubscription />, <Footer />]} />
         <Route path='/creatorprofile' element={[<CreatorNavbar url={url} />, <CreatorProfile url={url} />, <CreatorPodcastList data={{ url: url, role: 'creator' }} />, <Footer />]} />
         <Route path="/creatorforgotpassword" element={[<LandingNav props={{ value: "creatorlanding" }} />, <CreatorForgot />, <Footer />]} />
+        <Route path="/createraddquestion" element={[<CreatorNavbar url={url}/>,<AddQuestion/>,<Footer/>]} />
+        <Route path="/createraddquestion1" element={<AddQuestion1/>} />
+        <Route path="/createrviewquestion" element={[<CreatorNavbar url={url}/>,<ViewQuestion/>,<Footer/>]} />
+        <Route path="/createreditquestion" element={[<CreatorNavbar url={url}/>,<EditQuestions/>,<Footer/>]} />
+        <Route path="/createrexamquestionstatus" element={[<CreatorNavbar url={url}/>,<ExamQuestionStatus/>,<Footer/>]} />
+        <Route path="/createrviewreport" element={[<CreatorNavbar url={url}/>,<ViewReport/>,<Footer/>]} />
+        <Route path="/createrviewreportdetail" element={[<CreatorNavbar url={url}/>,<ExamReportDetail/>,<Footer/>]} />
+
 
         <Route path='/creatorredit' element={[<CreatorNavbar url={url} />, <CreatorProfileEdit />, <Footer />]} />
         <Route path='/creatorupload' element={<CreatorUploadPage />} />
@@ -96,7 +119,7 @@ function App() {
 
         <Route path="/adminhome" element={[<AdminLandingPage />, <Footer />]} />
         <Route path="/adminlogin" element={<AdminLogin />} />
-        <Route path="/admindashboard" element={[<AdminDashboard />, <ListenerList url={url} />, <Footer />]} />
+        <Route path="/admindashboard" element={[<AdminDashboard url={url} />, <Footer />]} />
         <Route path="/paymentform/:id" element={<Paymentform />} />
         <Route path="/listenerlist" element={<ListenerList url={url} />} />
         <Route path="/creatorlist" element={<CreatorList url={url} />} />
@@ -112,7 +135,7 @@ function App() {
         <Route path="/hide" element={<HidePermanentlyOnClick/>}/>
 
         <Route path='/adminexamcoordinatelogin' element={<AdminExamCoordinatorLogin/>} />
-        <Route path='/adminexamcoordinateedit' element={<AdminExamCoordinateView/>} />
+        <Route path='/adminexamcoordinateview' element={<AdminExamCoordinateView/>} />
         <Route path='/adminexamcoordinatesave' element={<AdminExamCoordinatorEdit/>} />
 
         <Route path='/examcoordinatelogin' element={<ExamCordinatorLogin/>} />
