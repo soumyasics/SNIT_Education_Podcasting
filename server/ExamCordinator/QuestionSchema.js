@@ -6,27 +6,26 @@ const questionSchema = new Schema({
     type: String,
     required: true
   },
-  question: {
+  question1: {
+    type: String,
+  },
+  option11: {
     type: String,
     required: true
   },
-  option1: {
+  option12: {
     type: String,
     required: true
   },
-  option2: {
+  option13: {
     type: String,
     required: true
   },
-  option3: {
+  option14: {
     type: String,
     required: true
   },
-  option4: {
-    type: String,
-    required: true
-  },
-  answer: {
+  answer1: {
     type: String,
     required: true
   },
