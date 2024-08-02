@@ -4,7 +4,7 @@ const Question = require('./QuestionSchema');
 const createQuestion = async (req, res) => {
   console.log(req.body);
   try {
-    const { select, question, option1, option2, option3, option4, answer, creatorId, podcastId, status = 'Pending' } = req.body;
+    const {data} = req.body;
 
     // Check if a question already exists for the selected podcast
     const existingQuestion = await Question.findOne({ podcastId });
@@ -12,20 +12,9 @@ const createQuestion = async (req, res) => {
       return res.status(400).json({ error: 'A question set already exists for this podcast' });
     }
 
-    const newQuestion = new Question({
-      select,
-      question,
-      option1,
-      option2,
-      option3,
-      option4,
-      answer,
-      creatorId,
-      podcastId,
-      status
-    });
-
-    const savedQuestion = await newQuestion.save();
+    const questionData = req.body;
+    const question = new Question(questionData);
+    await question.save();
     res.status(201).json(savedQuestion);
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while creating the question' });
