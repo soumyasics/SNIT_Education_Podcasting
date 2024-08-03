@@ -10,6 +10,7 @@ const episode=require('./Creator/CreatorEpisodeController')
 const listenerreview=require('./Listener/Review/reviewController')
 const cordinator=require('./ExamCordinator/cordinatorController')
 const question=require('./ExamCordinator/questionController')
+const Answer=require('./Answers/answerController')
 
 
 //Listeners
@@ -95,5 +96,13 @@ router.post('/deleteQuestion/:id', question.deleteQuestion);
 router.post('/getAllQuestions', question.getAllQuestions);
 router.post('/updateQuestion/:id', question.updateQuestion);
 
+
+router.post('/createAnswer',Answer.createAnswer)
+router.post('/getAllAnswers',Answer.getAllAnswers)
+router.post('/getAnswerById/:id',Answer.getAnswerById)
+router.post('/getAnswersByQuestionId/:id',Answer.getAnswersByQuestionId)
+router.post('/getAnswersByListenerId/:id',Answer.getAnswersByListenerId)
+
+router.post('/calcScore/:id',Answer.calcScore)
 
 module.exports=router
