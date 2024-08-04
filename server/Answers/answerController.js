@@ -145,35 +145,31 @@ const getQuestionByCreatorId = async (req, res) => {
 // Calculate the score for a given answer ID
 const calcScore = async (req, res) => {
 try {
-  const { answerId } = req.params;
+  const answerId= req.params.id;
 
-  // Fetch the answer document and populate the related question document
   const answer = await Answer.findById(answerId).populate('questionId');
   
   if (!answer) {
     return res.status(404).json({ error: 'Answer not found' });
   }
 
-  const question = answer.questionId; // This is the question document
+  const question = answer.questionId;
 
-  // Initialize score
   let score = 0;
 
-  // Function to check if the provided answer matches the correct answer
   const checkAnswer = (questionAnswer, userAnswer) => questionAnswer === userAnswer;
 
   // Iterate through each question and compare with answers
   for (let i = 1; i <= 10; i++) {
     const questionKey = `question${i}`;
     const answerKey = `answer${i}`;
-    const userAnswerTextKey = `answerText${i}`;
     const userAnswerOptionKey = `answerOption${i}`;
 
     if (question[questionKey] && question[answerKey]) {
       const correctAnswer = question[answerKey];
-      const userAnswer = answer[userAnswerTextKey] || answer[userAnswerOptionKey];
+      const userAnswer = answer[userAnswerOptionKey];
       
-      if (checkAnswer(correctAnswer, userAnswer)) {
+      if (checkAnswer(correctAnswer,userAnswer)) {
         score += 1; // Increment score for correct answer
       }
     }
@@ -182,6 +178,8 @@ try {
   // Respond with the calculated score
   res.status(200).json({ score });
 } catch (error) {
+  console.log(error);
+  
   res.status(500).json({ error: 'An error occurred while calculating the score' });
 }
 };
