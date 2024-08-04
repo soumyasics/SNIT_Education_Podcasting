@@ -100,15 +100,25 @@ function ViewQuestion() {
         </div>
       )}
       <div>
-        {questions?.length > 0 ? questions.map((question, index) => (
+        {questions.length > 0 ? questions.map((questionSet, index) => (
           <div className="ms-5 mt-5" key={index}>
-            <h5>Question {index + 1}</h5>
-            <p>{question.question}</p>
-            <p>A. {question.option1}</p>
-            <p>B. {question.option2}</p>
-            <p>C. {question.option3}</p>
-            <p>D. {question.option4}</p>
-            <p>Answer: {question.answer}</p>
+            {Object.keys(questionSet).map((key) => {
+              if (key.startsWith('question')) {
+                const questionNumber = key.replace('question', '');
+                return (
+                  <div key={questionNumber}>
+                    <h5>Question {questionNumber}</h5>
+                    <p>{questionSet[key]}</p>
+                    <p>A. {questionSet[`option1${questionNumber}`]}</p>
+                    <p>B. {questionSet[`option1${questionNumber}`]}</p>
+                    <p>C. {questionSet[`option1${questionNumber}`]}</p>
+                    <p>D. {questionSet[`option1${questionNumber}`]}</p>
+                    <p>Answer: {questionSet[`answer${questionNumber}`]}</p>
+                  </div>
+                );
+              }
+              return null;
+            })}
           </div>
         )) : (
           <div className="ms-5 mt-5">
@@ -116,7 +126,7 @@ function ViewQuestion() {
           </div>
         )}
       </div>
-      {questions?.length > 0 && (
+      {questions.length > 0 && (
         <div className="text-center">
           <button className="view-question-editbtn" onClick={handleEdit}>
             Edit

@@ -6,7 +6,10 @@ import Navbar from "react-bootstrap/Navbar";
 import axiosInstance from '../../Baseurl';
 import image from '../../Assest/Group 2151.png'
 function ListenerMainNavbar({url}) {
+  
     const [listenernav, setListenernav] = useState("");
+
+
     useEffect(() => {
         axiosInstance
         .post("/viewListenerById", { id: localStorage.getItem("listenerid") })
