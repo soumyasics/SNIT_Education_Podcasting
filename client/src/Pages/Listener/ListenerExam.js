@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axiosInstance from '../../Baseurl';
 
 function ListenerExam() {
   const { id } = useParams(); // Extracting the podcast ID from the URL
   const [questions, setQuestions] = useState([]);
   const [error, setError] = useState('');
+  const navigate=useNavigate()
 
   useEffect(() => {
     axiosInstance.post(`/getQuestionByPodcastId/${id}`)
@@ -50,6 +51,10 @@ function ListenerExam() {
     return null;
   };
 
+  const handleSubmit=()=>{
+    navigate("/listenerexamreport")
+  }
+
   return (
     <div>
       <div className='listener-exam-divbox container mt-3'>
@@ -61,7 +66,7 @@ function ListenerExam() {
             {Array.from({ length: 10 }).map((_, index) => renderQuestion(question, index))}
           </div>
         ))}
-        <div className='text-center'><button className='mt-5 btn btn-success '>Submit</button></div>
+        <div className='text-center'><button className='mt-5 btn btn-success ' onClick={handleSubmit}>Submit</button></div>
         
       </div>
     </div>
