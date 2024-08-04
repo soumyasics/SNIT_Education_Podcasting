@@ -93,7 +93,7 @@ router.post('/getQuestionByPodcastId/:id', question.getQuestionByPodcastId);
 router.post('/getQuestionById/:id', question.getQuestionById);
 router.post('/deleteQuestion/:id', question.deleteQuestion);
 router.post('/getAllQuestions', question.getAllQuestions);
-router.post('/updateQuestion/:id', question.updateQuestion);
-
+router.post('/getAllPendingQuestions', question.getAllPendingQuestions);
+router.post('/getAllAcceptedQuestions', question.getAllAcceptedQuestions);
 
 module.exports=router

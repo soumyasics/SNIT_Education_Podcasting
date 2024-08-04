@@ -67,7 +67,7 @@ function CreatorRegister() {
           },
         })
         .then((response) => {
-          console.log(response, "y");
+          console.log(response);
           alert(response.data.msg);
           navigate("/creatorlogin")
 

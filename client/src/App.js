@@ -141,8 +141,8 @@ function App() {
         <Route path='/examcoordinatelogin' element={<ExamCordinatorLogin/>} />
         <Route path='/examcoordinateNav' element={<ExamCoordinatorNav/>} />
         <Route path='/examcoordinatehome' element={[<ExamCoordinatorNav/>,<ExamCoordinatorHome/>,<Footer/>]} />
-        <Route path='/examcoordinateviewrequest' element={[<ExamCoordinatorNav/>,<ViewRequest/>,<Footer/>]} />
-        <Route path='/examcoordinateviewquestion' element={[<ExamCoordinatorNav/>,<ExamCoordinatorViewQuestion/>,<Footer/>]} />
+        <Route path='/examcoordinateviewrequest' element={[<ExamCoordinatorNav/>,<ViewRequest url={url}/>,<Footer/>]} />
+        <Route path='/examcoordinateviewquestion/:id' element={[<ExamCoordinatorNav/>,<ExamCoordinatorViewQuestion/>,<Footer/>]} />
         <Route path='/examcoordinateviewall' element={[<ExamCoordinatorNav/>,<Viewall/>,<Footer/>]} />
         <Route path='/examcoordinateviewallquestion' element={[<ExamCoordinatorNav/>,<ViewAllQuestion/>,<Footer/>]} />
 

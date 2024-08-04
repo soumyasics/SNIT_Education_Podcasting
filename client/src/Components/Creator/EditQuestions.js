@@ -8,7 +8,6 @@ function EditQuestions() {
   const [select, setSelect] = useState("");
   const [questions, setQuestions] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const [errors, setErrors] = useState({});
 
   const handleEdit = () => {
     navigate("/createreditquestion");
@@ -96,7 +95,7 @@ function EditQuestions() {
     );
     if (selectedPodcast) {
       axiosInstance
-        .put(`/updateQuestion/${selectedPodcast._id}`, { questions })
+        .post(`/updateQuestion/${selectedPodcast._id}`, questions)
         .then((result) => {
           alert("Questions updated successfully");
         })
@@ -130,82 +129,61 @@ function EditQuestions() {
       )}
       {questions.map((question, index) => (
         <div className="container mt-5" key={index}>
-          <div className="mt-5">
-            <label className="ms-4 add-question-label me-2 ">
-              {index + 1}.
-            </label>
-            <input
-              type="text"
-              className="add-question-text ms-3 ps-3"
-              placeholder="Enter the Question"
-              value={question.question}
-              name="question"
-              onChange={(e) => handleChange(index, e)}
-            />
-          </div>
+          {Array.from({ length: 10 }).map((_, qIndex) => {
+            const questionKey = `question${qIndex + 1}`;
+            const answerKey = `answer${qIndex + 1}`;
+            const options = [`option${qIndex + 1}1`, `option${qIndex + 1}2`, `option${qIndex + 1}3`, `option${qIndex + 1}4`];
 
-          <div>
-            <label className="ms-4 add-question-label me-2 mt-5">A.</label>
-            <input
-              type="text"
-              className="add-question-optiontextbox ms-3 ps-3"
-              placeholder="Option"
-              value={question.option1}
-              name="option1"
-              onChange={(e) => handleChange(index, e)}
-            />
-          </div>
-
-          <div>
-            <label className="ms-4 add-question-label me-2 mt-5">B.</label>
-            <input
-              type="text"
-              className="add-question-optiontextbox ms-3 ps-3"
-              placeholder="Option"
-              value={question.option2}
-              name="option2"
-              onChange={(e) => handleChange(index, e)}
-            />
-          </div>
-
-          <div>
-            <label className="ms-4 add-question-label me-2 mt-5">C.</label>
-            <input
-              type="text"
-              className="add-question-optiontextbox ms-3 ps-3"
-              placeholder="Option"
-              value={question.option3}
-              name="option3"
-              onChange={(e) => handleChange(index, e)}
-            />
-          </div>
-
-          <div>
-            <label className="ms-4 add-question-label me-2 mt-5">D.</label>
-            <input
-              type="text"
-              className="add-question-optiontextbox ms-3 ps-3"
-              placeholder="Option"
-              value={question.option4}
-              name="option4"
-              onChange={(e) => handleChange(index, e)}
-            />
-          </div>
-
-          <div className="container mt-5 ms-5 ">
-            <select
-              className="add-question-select ps-3"
-              value={question.answer}
-              name="answer"
-              onChange={(e) => handleChange(index, e)}
-            >
-              <option value="">Answer</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-              <option value="D">D</option>
-            </select>
-          </div>
+            if (question[questionKey]) {
+              return (
+                <div key={qIndex}>
+                  <div className="mt-5">
+                    <label className="ms-4 add-question-label me-2 ">
+                      {qIndex + 1}
+                    </label>
+                    <input
+                      type="text"
+                      className="add-question-text ms-3 ps-3"
+                      placeholder="Enter the Question"
+                      value={question[questionKey]}
+                      name={questionKey}
+                      onChange={(e) => handleChange(index, e)}
+                    />
+                  </div>
+                  {options.map((optionKey, oIndex) => (
+                    <div key={oIndex}>
+                      <label className="ms-4 add-question-label me-2 mt-5">
+                        {String.fromCharCode(65 + oIndex)}.
+                      </label>
+                      <input
+                        type="text"
+                        className="add-question-optiontextbox ms-3 ps-3"
+                        placeholder="Option"
+                        value={question[optionKey]}
+                        name={optionKey}
+                        onChange={(e) => handleChange(index, e)}
+                      />
+                    </div>
+                  ))}
+                  <div className="container mt-5 ms-5">
+                    <select
+                      className="add-question-select ps-3"
+                      value={question[answerKey]}
+                      name={answerKey}
+                      onChange={(e) => handleChange(index, e)}
+                    >
+                      <option value="">Answer</option>
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                      <option value="D">D</option>
+                    </select>
+                  </div>
+                </div>
+              );
+            }
+            return null;
+          })}
         </div>
       ))}
 
