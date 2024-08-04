@@ -6,14 +6,14 @@ const createQuestion = async (req, res) => {
   try {
 
     // Check if a question already exists for the selected podcast
-    const existingQuestion = await Question.findOne({ podcastId });
+    const existingQuestion = await Question.findOne({ podcastId:req.body.podcastId });
     if (existingQuestion) {
       return res.status(400).json({ error: 'A question set already exists for this podcast' });
     }
 
     const questionData = req.body;
     const question = new Question(questionData);
-    await question.save();
+   let savedQuestion= await question.save();
     res.status(201).json(savedQuestion);
   } catch (error) {
     console.log(error);
