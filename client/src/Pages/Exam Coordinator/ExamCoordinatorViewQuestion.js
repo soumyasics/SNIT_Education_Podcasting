@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import axiosInstance from '../../Baseurl';
 
@@ -7,6 +7,7 @@ function ExamCoordinatorViewQuestion() {
   const { id } = useParams(); // Extracting the question ID from the URL
   const [question, setQuestion] = useState(null);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     axiosInstance.post(`/getQuestionById/${id}`)
@@ -18,6 +19,28 @@ function ExamCoordinatorViewQuestion() {
       });
   }, [id]);
 
+  const handleAccept = () => {
+    axiosInstance.post(`/acceptQuestion/${id}`)
+      .then(response => {
+        alert(response.data.message);
+        navigate('/examcoordinateviewrequest');
+      })
+      .catch(error => {
+        setError("An error occurred while accepting the question.");
+      });
+  };
+
+  const handleReject = () => {
+    axiosInstance.post(`/rejectQuestion/${id}`)
+      .then(response => {
+        alert(response.data.message);
+        navigate('/examcoordinateviewrequest');
+      })
+      .catch(error => {
+        setError("An error occurred while rejecting the question.");
+      });
+  };
+
   if (error) {
     return <div className="alert alert-danger">{error}</div>;
   }
@@ -27,8 +50,8 @@ function ExamCoordinatorViewQuestion() {
   }
 
   return (
-    <div>
-      <div className='ms-5 ps-1'>
+    <div style={{minHeight:"100vh"}}>
+      <div className='ms-5 ps-1' >
         <Link to='/examcoordinateviewrequest' className='view-question-icon'>
           <IoArrowBackOutline />
         </Link>
@@ -54,15 +77,17 @@ function ExamCoordinatorViewQuestion() {
                       {String.fromCharCode(65 + oIndex)}. {question[optionKey]}
                     </p>
                   ))}
-                  <p>Answer: {question[`option${index + 1}${['A', 'B', 'C', 'D'].indexOf(question[answerKey]) + 1}`]}</p>
+                  <p>
+                    Answer: {String.fromCharCode(65 + options.indexOf(question[answerKey]))}. {question[answerKey]}
+                  </p>
                 </div>
               );
             }
             return null;
           })}
           <div className='text-center'>
-            <button className='view-question-approvebtn'>Approve</button>
-            <button className='view-question-rejectbtn ms-5'>Reject</button>
+            <button className='view-question-approvebtn' onClick={handleAccept}>Approve</button>
+            <button className='view-question-rejectbtn ms-5' onClick={handleReject}>Reject</button>
           </div>
         </div>
         <div className='col-1'></div>

@@ -25,7 +25,7 @@ function ViewRequest({url}) {
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{minHeight:"100vh"}}>
       <div className="row me-5 mt-5 text-center view-request-div pt-4">
         <div className="col-2">Profile</div>
         <div className="col-2">Name</div>

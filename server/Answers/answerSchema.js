@@ -47,7 +47,7 @@ answerText1: {
     type: String
   },
   answerText6: {
-
+type: String
   },
   answerOption6: {
     type: String

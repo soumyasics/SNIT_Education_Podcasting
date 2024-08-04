@@ -92,7 +92,7 @@ function App() {
         <Route path='/listenerProfile' element={[<ListenerMainNavbar url={url} />, <ListenerProfile url={url} />, <Footer />]} />
         <Route path='/listenersubscription' element={[<ListenerMainNavbar url={url} />, <ListenerSubscription data={{ url: url, role: 'listener' }} />, <Footer />]} />
         <Route path="/listenerexamreport" element={[<ListenerMainNavbar url={url}/>,<ListenerReport/>,<Footer/>]} />
-        <Route path="/listenerexam" element={[<ListenerMainNavbar url={url}/>,<ListenerExam/>,<Footer/>]} />
+        <Route path="/listenerexam/:id" element={[<ListenerMainNavbar url={url}/>,<ListenerExam/>,<Footer/>]} />
 
 
         
@@ -143,8 +143,8 @@ function App() {
         <Route path='/examcoordinatehome' element={[<ExamCoordinatorNav/>,<ExamCoordinatorHome/>,<Footer/>]} />
         <Route path='/examcoordinateviewrequest' element={[<ExamCoordinatorNav/>,<ViewRequest url={url}/>,<Footer/>]} />
         <Route path='/examcoordinateviewquestion/:id' element={[<ExamCoordinatorNav/>,<ExamCoordinatorViewQuestion/>,<Footer/>]} />
-        <Route path='/examcoordinateviewall' element={[<ExamCoordinatorNav/>,<Viewall/>,<Footer/>]} />
-        <Route path='/examcoordinateviewallquestion' element={[<ExamCoordinatorNav/>,<ViewAllQuestion/>,<Footer/>]} />
+        <Route path='/examcoordinateviewall' element={[<ExamCoordinatorNav/>,<Viewall url={url} />,<Footer/>]} />
+        <Route path='/examcoordinateviewallquestion/:id' element={[<ExamCoordinatorNav/>,<ViewAllQuestion/>,<Footer/>]} />
 
       </Routes>
     </BrowserRouter>

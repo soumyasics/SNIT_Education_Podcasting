@@ -104,5 +104,7 @@ router.post('/getAnswersByQuestionId/:id',Answer.getAnswersByQuestionId)
 router.post('/getAnswersByListenerId/:id',Answer.getAnswersByListenerId)
 
 router.post('/calcScore/:id',Answer.calcScore)
+router.post('/acceptQuestion/:id', question.acceptQuestion);
+router.post('/rejectQuestion/:id', question.rejectQuestion);
 
 module.exports=router

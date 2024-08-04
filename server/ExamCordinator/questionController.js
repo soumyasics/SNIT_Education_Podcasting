@@ -178,7 +178,7 @@ const getAllPendingQuestions = async (req, res) => {
 };
 const getAllAcceptedQuestions = async (req, res) => {
   try {
-    const questions = await Question.find({status:"Approved"});
+    const questions = await Question.find({status:"Approved"}).populate("creatorId podcastId")
     res.status(200).json(questions);
   } catch (error) {
     res
@@ -279,6 +279,57 @@ const getQuestionByCreatorId = async (req, res) => {
       .json({ error: "An error occurred while fetching the question" });
   }
 };
+
+
+const acceptQuestion= async (req, res) => {
+  try {
+    const id = req.params.id;
+    if (!id) {
+      return res.status(400).json({ message: "Id is required" });
+    }
+
+    const question = await Question.findById(id);
+    if (!question) {
+      return res.status(404).json({ message: "question not found" });
+    }
+
+    question.status = "Approved";
+    
+    await question.save();
+    return res.status(200).json({
+      message: "Question accepted",
+      data: question,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "server error on accept question", error });
+  }
+};
+
+const rejectQuestion = async (req, res) => {
+  try {
+    const id = req.params.id;
+    if (!id) {
+      return res.status(400).json({ message: "Id is required" });
+    }
+    const question = await Question.findById(id);
+    if (!question) {
+      return res.status(404).json({ message: "question not found" });
+    }
+
+    question.status = "Rejected";
+    await question.save();
+    return res
+      .status(200)
+      .json({ message: " question rejected", data: question });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "server error on reject question", error });
+  }
+};
+
 module.exports = {
   createQuestion,
   getAllQuestions,
@@ -289,5 +340,7 @@ module.exports = {
   getQuestionByPodcastId,
 
   getAllPendingQuestions,
-  getAllAcceptedQuestions
+  getAllAcceptedQuestions,
+  acceptQuestion,
+  rejectQuestion
 };
