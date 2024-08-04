@@ -16,6 +16,8 @@ const createQuestion = async (req, res) => {
     await question.save();
     res.status(201).json(savedQuestion);
   } catch (error) {
+    console.log(error);
+    
     res.status(500).json({ error: 'An error occurred while creating the question' });
   }
 };
