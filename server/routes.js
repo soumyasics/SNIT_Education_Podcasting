@@ -97,6 +97,8 @@ router.post('/getAllQuestions', question.getAllQuestions);
 router.post('/getAllPendingQuestions', question.getAllPendingQuestions);
 router.post('/getAllAcceptedQuestions', question.getAllAcceptedQuestions);
 
+router.post('/updateQuestion/:id', question.updateQuestion);
+
 router.post('/createAnswer',Answer.createAnswer)
 router.post('/getAllAnswers',Answer.getAllAnswers)
 router.post('/getAnswerById/:id',Answer.getAnswerById)
