@@ -57,7 +57,7 @@ function ExamCoordinatorViewQuestion() {
                     </p>
                   ))}
                   <p>
-                    Answer: {String.fromCharCode(65 + options.indexOf(question[answerKey]))}. {question[answerKey]}
+                    Answer: {question[answerKey]}
                   </p>
                 </div>
               );

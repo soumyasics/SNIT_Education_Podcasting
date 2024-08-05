@@ -35,7 +35,7 @@ function ViewRequest({url}) {
         <div className="col-2">View Request</div>
       </div>
       {error && <div className="alert alert-danger mt-3">{error}</div>}
-      {questions.map((question, index) => (
+      {questions?.length>0 ?questions.map((question, index) => (
         <div key={index} className="row mt-5 text-center view-request-div">
           <div className="col-2 pt-2">
             <img src={`${url}/${question.creatorId.image.filename}`} className="view-request-img" alt="Profile" />
@@ -53,7 +53,7 @@ function ViewRequest({url}) {
             </button>
           </div>
         </div>
-      ))}
+      )):<h4 className="text-success">There is no request fount</h4>}
     </div>
   );
 }

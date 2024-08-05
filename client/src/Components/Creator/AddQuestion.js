@@ -81,6 +81,7 @@ function AddQuestion() {
       } catch (err) {
         if (err.response && err.response.status === 400 && err.response.data.error === 'A question set already exists for this podcast') {
           setErrorMessage('A question set already exists for this podcast');
+          alert("A question set already exists for this podcast");
         } else {
           alert("Error occurred while adding question");
           console.error(err);
