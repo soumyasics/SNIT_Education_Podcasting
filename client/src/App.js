@@ -65,8 +65,8 @@ import ListenerExam from "./Pages/Listener/ListenerExam";
 import ExamReportDetail from "./Components/Creator/ExamReportDetail";
 function App() {
 
-  // const url = 'http://localhost:4030/'
-  const url = 'http://hybrid.srishticampus.in:4030/'
+  const url = 'http://localhost:4030/'
+  // const url = 'http://hybrid.srishticampus.in:4030/'
 
   return (
     <BrowserRouter basename="/educational_podcast">

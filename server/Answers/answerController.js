@@ -26,7 +26,7 @@ const createAnswer = async (req, res) => {
     const existingAns = await Answer.findOne({
       listenerid,
       questionId,
-      status: "Reviewed",
+      // status: "Reviewed",
     });
     if (existingAns) {
       return res
@@ -157,11 +157,8 @@ const getAnswersByQuestionId = async (req, res) => {
 // Get answers by listener ID
 const getAnswersByListenerId = async (req, res) => {
   try {
-    const { listenerId } = req.params;
-    const answers = await Answer.find({ listenerid: listenerId })
-      .populate("questionId")
-      .populate("creatorId")
-      .populate("podcastId");
+    const { id } = req.params;
+    const answers = await Answer.find({ listenerid: id });
     res.status(200).json(answers);
   } catch (error) {
     res

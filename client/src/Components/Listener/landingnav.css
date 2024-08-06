@@ -24,6 +24,7 @@
     height: 30vh;
     width: 70%;
     border-radius: 20px;
+    text-align: center;
 }
 .listener-report-correctanswer{
     border: 1px solid #56905cc0;
