@@ -170,20 +170,17 @@ const getAnswersByListenerId = async (req, res) => {
 };
 
 // Get a single question by ID
-const getQuestionByCreatorId = async (req, res) => {
+const getAnswersByCreatorid = async (req, res) => {
   try {
     const { id } = req.params;
-    const question = await Question.find({ creatorId: id }).populate(
-      "podcastId creatorId"
-    );
-    if (!question) {
-      return res.status(404).json({ error: "Question not found" });
-    }
-    res.status(200).json(question);
+    const answers = await Answer.find({ creatorId: id }).populate("questionId listenerid creatorId podcastId")
+    res.status(200).json(answers);
   } catch (error) {
     res
       .status(500)
-      .json({ error: "An error occurred while fetching the question" });
+      .json({
+        error: "An error occurred while fetching answers by listener ID",
+      });
   }
 };
 
@@ -239,5 +236,6 @@ module.exports = {
   deleteAnswer,
   getAnswersByQuestionId,
   getAnswersByListenerId,
+  getAnswersByCreatorid,
   calcScore,
 };

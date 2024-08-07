@@ -108,11 +108,11 @@ function ViewQuestion() {
                 return (
                   <div key={questionNumber}>
                     <h5>Question {questionNumber}</h5>
-                    <p>{questionSet[key]}</p>
-                    <p>A. {questionSet[`option1${questionNumber}`]}</p>
-                    <p>B. {questionSet[`option1${questionNumber}`]}</p>
-                    <p>C. {questionSet[`option1${questionNumber}`]}</p>
-                    <p>D. {questionSet[`option1${questionNumber}`]}</p>
+                    <h6>{questionSet[key]} ?</h6>
+                    <p>A. {questionSet[`option${questionNumber}1`] || questionSet[`option1${questionNumber}`]}</p>
+                    <p>B. {questionSet[`option${questionNumber}2`] || questionSet[`option2${questionNumber}`]}</p>
+                    <p>C. {questionSet[`option${questionNumber}3`] || questionSet[`option3${questionNumber}`]}</p>
+                    <p>D. {questionSet[`option${questionNumber}4`] || questionSet[`option4${questionNumber}`]}</p>
                     <p>Answer: {questionSet[`answer${questionNumber}`]}</p>
                   </div>
                 );

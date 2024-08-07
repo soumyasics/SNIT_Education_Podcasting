@@ -104,6 +104,7 @@ router.post('/getAllAnswers',Answer.getAllAnswers)
 router.post('/getAnswerById/:id',Answer.getAnswerById)
 router.post('/getAnswersByQuestionId/:id',Answer.getAnswersByQuestionId)
 router.post('/getAnswersByListenerId/:id',Answer.getAnswersByListenerId)
+router.post('/getAnswersByCreatorid/:id',Answer.getAnswersByCreatorid)
 
 router.post('/calcScore/:id',Answer.calcScore)
 router.post('/acceptQuestion/:id', question.acceptQuestion);

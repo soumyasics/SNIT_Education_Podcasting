@@ -116,7 +116,7 @@ function ListenerExam() {
       return (
         <div key={index} className="mt-5 ms-5 mb-5">
           <h5>Question {index + 1}</h5>
-          <p className="pt-2">{questionText} ?</p>
+          <h6 className="pt-2">{questionText} ?</h6>
           {options.map((option, optionIndex) => (
             <div key={optionIndex}>
               <input

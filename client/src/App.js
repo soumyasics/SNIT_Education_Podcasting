@@ -107,8 +107,8 @@ function App() {
         <Route path="/createrviewquestion" element={[<CreatorNavbar url={url}/>,<ViewQuestion/>,<Footer/>]} />
         <Route path="/createreditquestion" element={[<CreatorNavbar url={url}/>,<EditQuestions/>,<Footer/>]} />
         <Route path="/createrexamquestionstatus" element={[<CreatorNavbar url={url}/>,<ExamQuestionStatus/>,<Footer/>]} />
-        <Route path="/createrviewreport" element={[<CreatorNavbar url={url}/>,<ViewReport/>,<Footer/>]} />
-        <Route path="/createrviewreportdetail" element={[<CreatorNavbar url={url}/>,<ExamReportDetail/>,<Footer/>]} />
+        <Route path="/createrviewreport" element={[<CreatorNavbar url={url}/>,<ViewReport url={url}/>,<Footer/>]} />
+        <Route path="/createrviewreportdetail/:ansid" element={[<CreatorNavbar url={url}/>,<ExamReportDetail url={url}/>,<Footer/>]} />
 
 
         <Route path='/creatorredit' element={[<CreatorNavbar url={url} />, <CreatorProfileEdit />, <Footer />]} />

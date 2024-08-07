@@ -20,7 +20,7 @@ function Subscriptions({ url }) {
     }, []);
 
     return (
-        <div className='container'>
+        <div className='container' style={{minHeight:"100vh"}}>
             <h3 className='m-2'>Subscribers</h3>
             <div className='p-3 m-5' style={{
                 boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",

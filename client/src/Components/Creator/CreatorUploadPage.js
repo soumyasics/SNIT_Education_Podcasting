@@ -75,9 +75,9 @@ const creatorname=localStorage.getItem('creatorname')
   }, []);
 
     return (
-    <div className="podcast_upload">
-      <div className="container">
-        <h4 className="text-center">Upload Podcast</h4>
+    <div className="podcast_upload" > 
+      <div className="container" style={{minHieght:"200vh"}}>
+        <h4 className="text-center" >Upload Podcast</h4>
         <div className="row">
           <div className="col">
             <label className="Creator_Name_label" for="">
