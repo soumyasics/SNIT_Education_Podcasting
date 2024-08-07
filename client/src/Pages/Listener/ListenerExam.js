@@ -1,29 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import axiosInstance from '../../Baseurl';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axiosInstance from "../../Baseurl";
 
 function ListenerExam() {
   const { id } = useParams(); // Extracting the podcast ID from the URL
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
-  const [error, setError] = useState('');
-  const [validationError, setValidationError] = useState('');
+  const [error, setError] = useState("");
+  const [validationError, setValidationError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch questions for the podcast
-    axiosInstance.post(`/getQuestionByPodcastId/${id}`)
-      .then(response => {
+    axiosInstance
+      .post(`/getQuestionByPodcastId/${id}`)
+      .then((response) => {
         setQuestions(response.data);
         console.log(response.data, "pp");
       })
-      .catch(error => {
+      .catch((error) => {
         setError("An error occurred while fetching the questions.");
       });
   }, [id]);
 
   const handleOptionChange = (questionIndex, option) => {
-    setAnswers(prevAnswers => ({
+    setAnswers((prevAnswers) => ({
       ...prevAnswers,
       [`answerOption${questionIndex + 1}`]: option,
     }));
@@ -38,17 +39,29 @@ function ListenerExam() {
       return;
     }
 
-    axiosInstance.post(`/createAnswer`, { ...answers, listenerid: listenerId, questionId: questions[0]._id })
-      .then(response => {
-        console.log("Answer submitted successfully:", response.data);
-       
+    axiosInstance
+      .post(`/createAnswer`, {
+        ...answers,
+        listenerid: listenerId,
+        questionId: questions[0]._id,
       })
-      .catch(error => {
-        if (error.response && error.response.data.error === "You have already attended this Set of Questions") {
-          alert("You have already attended this Set of Questions");
+      .then((response) => {
+        console.log("Answer submitted successfully:", response.data);
+        setTimeout(() => {
+          navigate("/listenerexamreport");
+        }, 2000);
+      })
+      .catch((error) => {
+        if (
+          error.response &&
+          error.response.status === 400 &&
+          error.response.data.error ===
+            "You have already attended this Set of Questions"
+        ) {
+          alert("A question set already exists for this podcast");
         } else {
-          console.error("An error occurred while submitting the answer:", error);
-          setError("An error occurred while submitting the answer.");
+          alert("Error occurred while adding question");
+          console.error(error);
         }
       });
   };
@@ -59,23 +72,31 @@ function ListenerExam() {
 
   return (
     <div>
-      <div className='listener-exam-divbox container mt-3'>
-        <div className='text-center mt-5'>
+      <div className="listener-exam-divbox container mt-3">
+        <div className="text-center mt-5">
           <h3>{questions[0]?.podcastId?.podcastname || "Podcast Exam"}</h3>
         </div>
         {questions.length === 0 ? (
-          <div className="alert alert-info">There are no questions for this podcast.</div>
+          <div className="alert alert-info">
+            There are no questions for this podcast.
+          </div>
         ) : (
           questions.map((question, qIndex) => (
             <div key={qIndex}>
-              {Array.from({ length: 10 }).map((_, index) => renderQuestion(question, index))}
+              {Array.from({ length: 10 }).map((_, index) =>
+                renderQuestion(question, index)
+              )}
             </div>
           ))
         )}
-        {validationError && <div className="alert alert-warning">{validationError}</div>}
+        {validationError && (
+          <div className="alert alert-warning">{validationError}</div>
+        )}
         {questions.length > 0 && (
-          <div className='text-center'>
-            <button className='mt-5 btn btn-success' onClick={handleSubmit}>Submit</button>
+          <div className="text-center">
+            <button className="mt-5 btn btn-success" onClick={handleSubmit}>
+              Submit
+            </button>
           </div>
         )}
       </div>
@@ -93,18 +114,24 @@ function ListenerExam() {
 
     if (questionText) {
       return (
-        <div key={index} className='mt-5 ms-5 mb-5'>
+        <div key={index} className="mt-5 ms-5 mb-5">
           <h5>Question {index + 1}</h5>
-          <p className='pt-2'>{questionText} ?</p>
+          <h6 className="pt-2">{questionText} ?</h6>
           {options.map((option, optionIndex) => (
             <div key={optionIndex}>
               <input
-                type='radio'
-                className='listener-exam-radio'
+                type="radio"
+                className="listener-exam-radio"
                 name={`question${index}`}
                 value={String.fromCharCode(65 + optionIndex)}
-                onChange={() => handleOptionChange(index, String.fromCharCode(65 + optionIndex))}
-              /> {String.fromCharCode(65 + optionIndex)}. {option}
+                onChange={() =>
+                  handleOptionChange(
+                    index,
+                    String.fromCharCode(65 + optionIndex)
+                  )
+                }
+              />{" "}
+              {String.fromCharCode(65 + optionIndex)}. {option}
             </div>
           ))}
         </div>

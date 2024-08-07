@@ -31,15 +31,14 @@ function ExamQuestionStatus() {
   const uniqueQuestions = Object.values(groupedQuestions);
 
   return (
-    <div>
+    <div className='container'>
       <div className="text-center">
         <h3 className="add-question-h3">Exam Question Status</h3>
       </div>
-      <div className="row mt-5 ms-5 text-center pt-3 exam-question-status-back container">
+      <div className="row mt-5 text-center pt-3 exam-question-status-back ">
         <div className="col"><b>Sl.no</b></div>
         <div className="col"><b>Podcast</b></div>
         <div className="col"><b>Status</b></div>
-        <div className="col"><b>Comments</b></div>
       </div>
       {uniqueQuestions.length === 0 ? (
         <div className="text-center mt-5">
@@ -49,12 +48,11 @@ function ExamQuestionStatus() {
         uniqueQuestions.map((item, index) => (
           <div
             key={index}
-            className={`row ms-5 text-center pt-3 ${index % 2 === 0 ? 'exam-question-status-backcolors' : 'exam-question-status-backcolor'} container`}
+            className={`row text-center pt-3 ${index % 2 === 0 ? 'exam-question-status-backcolors' : 'exam-question-status-backcolor'} `}
           >
             <div className="col"><b>{index + 1}.</b></div>
             <div className="col"><b>{item.podcastName}</b></div>
             <div className="col"><b>{item.status}</b></div>
-            <div className="col"><b>{item.comments}</b></div>
           </div>
         ))
       )}
