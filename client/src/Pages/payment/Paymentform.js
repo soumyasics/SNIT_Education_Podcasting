@@ -12,13 +12,30 @@ function Paymentform() {
   const [creaditcardnumber, setCredictcardnumber] = useState("");
   const [expirationDate, setExpirationDate] = useState("");
   const [CVV, setCVV] = useState("");
-
+  const [podcast, setPodcast] = useState({});
+  
 
   const enteredDateObj = new Date(expirationDate);
   const currentDate = new Date();
 
   const { id } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(id);
+    axiosInstance
+      .post("/getPodcastByPodcastId", {
+        id: id.split(",")[0],
+      })
+      .then((response) => {
+        setPodcast(response.data.data);
+        console.log(response.data.data);
+      })
+      .catch((error) => {
+        console.log("Error submitting data: ", error);
+      })
+    },[])
+
 
   const handlePayment = async () => {
     if (cardholdername.length > 3) {
@@ -68,12 +85,16 @@ function Paymentform() {
     }
 
   }
+ console.log(podcast,"k");
+ 
+
   return (
     <div>
       <div className="paymentmain">
         <div className="row">
           <div className="col">
             <div className="listenerlogin_form">
+            <h4 className="text-success m-4">Upgrade Now !</h4>
               <form>
                 <Form.Group
                   className="mb-3"
@@ -121,7 +142,7 @@ function Paymentform() {
                 <div id="alertuser"></div>
                 <div>
                   <button type="button" onClick={handlePayment} className="listenerloginbtn mb-2 p-1">
-                    proceed to payment
+                    Proceed to payment amount {podcast[0]?.price}/-
                   </button>{" "}
                 </div>
                 <div>

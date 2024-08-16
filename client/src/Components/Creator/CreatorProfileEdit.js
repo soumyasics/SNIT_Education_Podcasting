@@ -80,8 +80,9 @@ function CreatorEdit() {
         })
         .then((response) => {
           alert(response.data.msg);
+          navigate("/creatorprofile")
           // console.log(response,"y");
-          window.location.reload();
+          // window.location.reload();
         })
         .catch((error) => {
           console.error("Error submitting data: ", error);

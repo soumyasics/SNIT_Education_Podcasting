@@ -21,13 +21,21 @@ function CreatorLogin() {
       return emailRegex.test(email);
     };
 
+    const validatePassword = (password) => {
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+      return passwordRegex.test(password);
+    };
     if (!validateEmail(email)) {
       document.getElementById("alertuser").innerHTML =
         "Please enter a valid email";
       return;
     }
     if (password === "") {
-      document.getElementById("alertuser").innerHTML = "password is empty";
+      document.getElementById("alertuser").innerHTML = "Password is required";
+      return;
+    } else if (!validatePassword(password)) {
+      document.getElementById("alertuser").innerHTML =
+        "Password should have a minimum of 8 characters including 1 uppercase letter, 1 lowercase letter, a number, and a special character";
       return;
     }
     try {
@@ -61,7 +69,7 @@ function CreatorLogin() {
     }
   };
   const forgot = () => {
-    navigate("/creator_forgotpassword");
+    navigate("/creatorforgotpassword");
   };
   const generateCaptcha = () => {
     const chars =
