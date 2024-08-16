@@ -197,7 +197,7 @@ const getSubscriptionByListenerId=(req,res)=>{
 }
 
 const Subcsriptions=(req,res)=>{
-  SubSchema.find().exec()
+  SubSchema.find().populate("podcastid")
   .then(data=>{
     if(data.length>0){
     res.json({
