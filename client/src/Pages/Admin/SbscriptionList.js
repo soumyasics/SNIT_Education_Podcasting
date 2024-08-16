@@ -8,8 +8,10 @@ function SbscriptionList() {
 
     useEffect(() => {
         axiosInstance
-            .post("/viewCreators")
+            .post("/viewsubscriptions")
             .then((response) => {
+                console.log(response,"l");
+                
                 setsubscriptionList(response.data.data);
                 console.log(response.data.data);
             })
