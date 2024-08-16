@@ -19,6 +19,7 @@ function ListenerEdit() {
         document.getElementById(
           response.data.data.gender.toLowerCase()
         ).checked = "true";
+
         setListenerRegister(response.data.data);
       })
       .catch((error) => {
@@ -82,7 +83,8 @@ function ListenerEdit() {
         .then((response) => {
           alert(response.data.msg);
           // console.log(response,"y");
-          window.location.reload();
+          // window.location.reload();
+          navigate("/listenerProfile")
         })
         .catch((error) => {
           console.error("Error submitting data: ", error);

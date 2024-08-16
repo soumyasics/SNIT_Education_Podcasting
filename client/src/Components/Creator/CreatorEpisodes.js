@@ -5,7 +5,6 @@ import axiosInstance from "../../Baseurl";
 import { useParams } from "react-router-dom";
 import { CiCirclePlus } from "react-icons/ci";
 
-
 function CreatorEpisodes({ url }) {
   const navigate = useNavigate();
   const [podcast, setPodcast] = useState([]);
@@ -44,7 +43,7 @@ function CreatorEpisodes({ url }) {
   };
 
   const handleEpisodeEdit = (id) => {
-    var data = id + ',' + podcast[0].podcastname;
+    var data = id + "," + podcast[0].podcastname;
     navigate(`/creatoreditepisode/${data}`);
   };
 
@@ -52,7 +51,7 @@ function CreatorEpisodes({ url }) {
     <div className="container mt-5">
       <div className="row">
         <div className="col-5">
-          {podcast.map((item) => (
+          {podcast?.map((item) => (
             <Card
               className="row"
               style={{
@@ -69,31 +68,34 @@ function CreatorEpisodes({ url }) {
                     boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
                     margin: "0px",
                   }}
-                  src={url + item.coverimage.filename}
+                  src={url + item?.coverimage?.filename}
                   alt="img"
                   className="listenerprofileimg"
                 ></img>
               </div>
 
               <div className="col-6 p-4">
-                <h3>{item.podcastname}</h3>
+                <h3>{item?.podcastname}</h3>
 
                 <div style={{ width: "100%" }}>
                   <audio controls>
                     <source
-                      src={item.audio ? url + item.audio.filename : ""}
+                      src={item?.audio ? url + item?.audio?.filename : ""}
                       type="audio/mpeg"
                     />
                     Your browser does not support the audio element.
                   </audio>
                 </div>
                 <div className="">
-                  <h6 className="card-text col">{item.creatorname}</h6>
-                  <h6>Discription {item.description}</h6>
-                  <button className="episodebtn"
-                    onClick={() => AddEpisode(item._id + "," + item.podcastname)}
+                  <h6 className="card-text col">{item?.creatorname}</h6>
+                  <h6>Discription {item?.description}</h6>
+                  <button
+                    className="episodebtn"
+                    onClick={() =>
+                      AddEpisode(item?._id + "," + item?.podcastname)
+                    }
                   >
-                    Add Episode <CiCirclePlus/>
+                    Add Episode <CiCirclePlus />
                   </button>
                 </div>
               </div>
@@ -110,10 +112,10 @@ function CreatorEpisodes({ url }) {
               boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
             }}
           >
-            {episodes.length ? (
-              episodes.map((item) => (
+            {episodes?.length ? (
+              episodes?.map((item) => (
                 <Card
-                  key={item._id}
+                  key={item?._id}
                   className="col-6 m-3 mt-3"
                   style={{
                     width: "95%",
@@ -121,12 +123,13 @@ function CreatorEpisodes({ url }) {
                     padding: "8px",
                   }}
                 >
-                  <p>{item.episodetitle}</p>
+                  <p>{item?.episodetitle}</p>
                   <div className="row">
                     <div className="col-3">
-                      <p>Episode {item.episodecount}</p>
-                      <button className="episodebtn"
-                        onClick={() => handleEpisodeEdit(item._id)}
+                      <p>Episode {item?.episodecount}</p>
+                      <button
+                        className="episodebtn"
+                        onClick={() => handleEpisodeEdit(item?._id)}
                       >
                         Edit Episode
                       </button>
@@ -135,7 +138,7 @@ function CreatorEpisodes({ url }) {
                     <div className="col-6">
                       <audio controls style={{ width: "150%" }}>
                         <source
-                          src={item.audio ? url + item.audio.filename : ""}
+                          src={item?.audio ? url + item?.audio?.filename : ""}
                           type="audio/mpeg"
                         />
                         Your browser does not support the audio element.
@@ -145,10 +148,12 @@ function CreatorEpisodes({ url }) {
                 </Card>
               ))
             ) : (
-              <h4>please add episodes</h4>)}
-              </div>
-              </div>
-
-              </div>
-              </div>)
-}export default CreatorEpisodes;
+              <h4>please add episodes</h4>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+export default CreatorEpisodes;

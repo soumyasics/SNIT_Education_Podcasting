@@ -69,15 +69,15 @@ function CreatorEpisodeAdd() {
   return (
     <div className="podcast_upload">
       <div className="container">
-        <h5 className="text-center mb-5">Add Episodes</h5>
+        <h5 className="text-center mb-5 p-5">Add Episodes</h5>
         <div className="row">
           <div className="col">
-            <label className="Creator_Name_label text-light" for="">
+            <label className="Creator_Name_label text-light " for="">
               Podcast Name
             </label>
             <input
               type="text"
-              class="form-control text-light"
+              class="form-control text-light p-3"
               id="Creator_Name"
               placeholder={podcastInfo[1]}
               value={podcastInfo[1]}
@@ -91,7 +91,7 @@ function CreatorEpisodeAdd() {
             <input
               required
               type="text"
-              class="form-control text-light"
+              class="form-control text-light p-3"
               id="Creator_Name"
               placeholder="Title"
               name="episodeTitle"
@@ -103,7 +103,7 @@ function CreatorEpisodeAdd() {
             <input
               id="Creator_Name"
               type="number"
-              class="form-control text-light"
+              class="form-control text-light p-3"
               placeholder="Title"
               name="episodeCount"
               onChange={handleInputChnage}
@@ -117,17 +117,18 @@ function CreatorEpisodeAdd() {
             </label>
             <input
               type="file"
-              class="form-control text-light"
+              class="form-control text-light "
               id="audiofile"
               placeholder=""
               name="file"
+               accept=".mp3"
               onChange={handleInputChnage}
               required
             ></input>
           </div>
         </div>
-        <button className="btn btn-light ms-3 px-5 mt-5" onClick={handleSubmit}>Upload</button>
-        <button className="btn btn-secondary ms-3 px-5 mt-5" onClick={handleCancel}>Cancel</button>
+        <button className="btn btn-light ms-3 px-5 mt-5 p-3" onClick={handleSubmit}>Upload</button>
+        <button className="btn btn-secondary ms-3 px-5 mt-5 p-3" onClick={handleCancel}>Cancel</button>
 
       </div>
     </div>
