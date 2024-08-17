@@ -94,7 +94,7 @@ function CreatorForgot() {
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               >
-                <Form.Control type="password" name='password' placeholder="new password" onChange={changefn}
+                <Form.Control type="password" name='password' placeholder="New Password" onChange={changefn}
                 />{errors.password && (
                   <div className="text-danger errortext">{errors.password}</div>
                 )}
@@ -103,7 +103,7 @@ function CreatorForgot() {
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               >
-                <Form.Control type="password" name='confirmpassword' placeholder="Conform password" onChange={changefn}
+                <Form.Control type="password" name='confirmpassword' placeholder="Conform Password" onChange={changefn}
                 />{errors.confirmpassword && (
                   <div className="text-danger errortext">{errors.confirmpassword}</div>
                 )}
