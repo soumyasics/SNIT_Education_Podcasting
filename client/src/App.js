@@ -98,7 +98,7 @@ function App() {
         
         <Route path="/creatorlogin" element={[<LandingNav props={{ value: "creatorlanding" }} />, <CreatorLogin />, <Footer />]} />
         <Route path='/creatorregister' element={[<LandingNav props={{ value: "creatorlanding" }} />, <CreatorRegister />, <Footer />]} />
-        <Route path="/creatorhomepage" element={[<CreatorNavbar url={url} />,<CreatorHomePage/>,<Footer/>]} />
+        <Route path="/creatorhomepage" element={[<CreatorNavbar url={url} />,<CreatorHomePage/> ,<CreatorPodcastList data={{ url: url, role: 'creator' }} />,<Footer/>]} />
         <Route path='/creatorsubscription' element={[<CreatorNavbar url={url} />, <CreatorSubscription />, <Footer />]} />
         <Route path='/creatorprofile' element={[<CreatorNavbar url={url} />, <CreatorProfile url={url} />, <CreatorPodcastList data={{ url: url, role: 'creator' }} />, <Footer />]} />
         <Route path="/creatorforgotpassword" element={[<LandingNav props={{ value: "creatorlanding" }} />, <CreatorForgot />, <Footer />]} />

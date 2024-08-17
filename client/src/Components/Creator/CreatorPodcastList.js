@@ -7,7 +7,8 @@ import { IoMdHeart } from "react-icons/io";
 
 function CreatorPodcastList({ data }) {
   const [isPlaying, setIsPlaying] = useState(false);
-
+  const [searchQuery, setSearchQuery] = useState("");
+  
   const togglePlay = () => {
     setIsPlaying(!isPlaying);
   };
@@ -60,13 +61,25 @@ function CreatorPodcastList({ data }) {
       console.error("Error submitting data: ", error);
     });  }
 
+    const handleSearchChange = (e) => {
+      setSearchQuery(e.target.value);
+    };
+  
+    const filteredPodcasts = creatorpodcast.filter((podcast) =>
+      podcast.podcastname.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  
+
   return (
     <div className="podcast_list_main">
       <div class="container ">
-      <h5 className="text-dark mt- pt-5">podcasts</h5>
+      <h4 className="text-dark mt- pt-5">podcasts</h4>
+
+      <input className="form-control m-5" placeholder="SEARCH PODCAST " value={searchQuery}
+      onChange={handleSearchChange}></input>
         <div class="row row-cols-1 row-cols-md-4 g-4 mt-3">
-          {creatorpodcast.length>0 ? (
-            creatorpodcast.map((a) => (
+          {filteredPodcasts.length>0 ? (
+            filteredPodcasts.map((a) => (
                 <div  className="card col-3" id="podcastlist_card">
                   <div class="podcastlist_card_img">
                     <img

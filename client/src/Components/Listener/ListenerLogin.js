@@ -23,15 +23,25 @@ function ListenerLogin() {
       return emailRegex.test(email);
     };
 
+    const validatePassword = (password) => {
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+      return passwordRegex.test(password);
+    };
+
     if (!validateEmail(email)) {
       document.getElementById("alertuser").innerHTML =
         "Please enter a valid email";
       return;
     }
     if (password === "") {
-      document.getElementById("alertuser").innerHTML = "password is empty";
+      document.getElementById("alertuser").innerHTML = "Password is required";
+      return;
+    } else if (!validatePassword(password)) {
+      document.getElementById("alertuser").innerHTML =
+        "Password should have a minimum of 8 characters including 1 uppercase letter, 1 lowercase letter, a number, and a special character";
       return;
     }
+
     try {
       const result = await axiosInstance.post("/listenerlogin", {
         email,
@@ -43,7 +53,7 @@ function ListenerLogin() {
           localStorage.setItem("token", result.data.token);
           localStorage.setItem("listenerid", result.data.id);
           localStorage.setItem("listenername", result.data.listenername);
-
+          alert(result.data.message);
           console.log(result);
           console.log(result.data.id);
           navigate("/listenerhome");
@@ -77,6 +87,7 @@ function ListenerLogin() {
   const handleCaptchaInputChange = (e) => {
     setUserCaptchaInput(e.target.value);
   };
+
   const handleReset = () => {
     setEmail("");
     setPassword("");
@@ -91,6 +102,7 @@ function ListenerLogin() {
   const Forgot = () => {
     navigate("/forgotpassword");
   };
+
   return (
     <div>
       <div className="listenerlogin_main">
@@ -126,9 +138,9 @@ function ListenerLogin() {
                   </label>
                 </Form.Group>
                 <div className="col-6 listenerCaptcha mt-5 mb-3">
-                  <div class="captchaborder mt-3">
-                    <div class="card-body club_login_captcha">
-                      <h5 class="card-title">{captchaText}</h5>
+                  <div className="captchaborder mt-3">
+                    <div className="card-body club_login_captcha">
+                      <h5 className="card-title">{captchaText}</h5>
                       <button
                         type="button"
                         id="refreshbutton"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import "./landingnav.css";
 import { useNavigate } from "react-router-dom";
@@ -28,6 +28,8 @@ function ForgotPassword() {
     e.preventDefault();
 
     let errors = {};
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+
     if (!resetpass.email.trim()) {
       formValid = false;
       errors.email = "Email is required";
@@ -35,18 +37,20 @@ function ForgotPassword() {
     if (!resetpass.password.trim()) {
       formValid = false;
       errors.password = "Password is required";
-    } else if (resetpass.password.length < 5) {
-      errors.password = "Password should be atleast 6 characters";
-    }
-
-    if (resetpass.confirmpassword !== resetpass.password) {
+    } else if (!passwordRegex.test(resetpass.password)) {
       formValid = false;
-      errors.confirmpassword = "Password not matched";
+      errors.password = "Password should have a minimum of 8 characters including 1 uppercase letter, 1 lowercase letter, a number, and a special character";
     }
 
     if (!resetpass.confirmpassword.trim()) {
       formValid = false;
       errors.confirmpassword = "Confirm Password is required";
+    } else if (!passwordRegex.test(resetpass.confirmpassword)) {
+      formValid = false;
+      errors.confirmpassword = "Password should have a minimum of 8 characters including 1 uppercase letter, 1 lowercase letter, a number, and a special character";
+    } else if (resetpass.confirmpassword !== resetpass.password) {
+      formValid = false;
+      errors.confirmpassword = "Passwords do not match";
     }
 
     setErrors(errors);
@@ -59,7 +63,7 @@ function ForgotPassword() {
 
           if (res.data.status == 200) {
             alert(res.data.msg);
-            // navigate("/sign_in");
+            navigate("/ListenerLogin");
           } else if (res.data.status == 500) {
             alert(res.data.msg);
           }
@@ -71,7 +75,6 @@ function ForgotPassword() {
       console.log("form", formValid);
     }
   };
-
 
   return (
     <div className="creatorforgot_main">
