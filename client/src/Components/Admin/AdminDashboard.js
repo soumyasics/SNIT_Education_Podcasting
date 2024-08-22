@@ -55,12 +55,12 @@ function AdminDashboard({url}) {
   return (
     <div className="adminbg" >
       <div className="row ">
-        <div className="col-2">
+        <div className="col-3">
           <AdminSidebar />
         </div>
-        <div className="col-9 text-center m-5">
+        <div className="col-8 text-center m-5">
           <img src={topimg} alt="img" className=" img-fluid"></img>
-          <h4 className="m-4">podcast statistics</h4>
+          <h4 className="m-4">Podcast Statistics</h4>
           <div className="container">
             <div className="adminbg row">
               <div className="col-4">

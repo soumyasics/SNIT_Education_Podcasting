@@ -11,9 +11,9 @@ function AdminLandingPage() {
         <div className="row">
           <div className="col-7">
             <div className="AdminHomebodyheading">
-              welcome ,<span> Admin! </span>
+              Welcome ,<span> Admin! </span>
             </div>
-            <div className="AdminHomebodyparagraph"> 
+            <div className="AdminHomebodyparagraph text-justify"> 
               your central hub for steering the vibrant podcasting community!
               Here, you hold the reins, managing podcasts, connecting with
               creators, and overseeing user experiences with seamless ease.

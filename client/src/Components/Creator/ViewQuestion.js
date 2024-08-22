@@ -8,6 +8,7 @@ function ViewQuestion() {
   const [select, setSelect] = useState("");
   const [questions, setQuestions] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [selectedPodcastId, setSelectedPodcastId] = useState("");
 
   const handleEdit = () => {
     navigate("/createreditquestion");
@@ -17,7 +18,12 @@ function ViewQuestion() {
     const podcastName = e.target.value;
     setSelect(podcastName);
 
-    const selectedPodcast = data.find(podcast => podcast.podcastname === podcastName);
+    const selectedPodcast = data.find(
+      (podcast) => podcast.podcastname === podcastName
+    );
+
+    setSelectedPodcastId(selectedPodcast._id)
+
     if (selectedPodcast) {
       axiosInstance
         .post(`/getQuestionByPodcastId/${selectedPodcast._id}`)
@@ -77,6 +83,10 @@ function ViewQuestion() {
       });
   }, []);
 
+  console.log(select);
+  console.log(selectedPodcastId);
+  
+
   return (
     <div className="container">
       <div className="text-center">
@@ -90,7 +100,9 @@ function ViewQuestion() {
           value={select}
         >
           {data.map((item) => (
-            <option key={item._id} value={item.podcastname}>{item.podcastname}</option>
+            <option key={item._id} value={item.podcastname}>
+              {item.podcastname}
+            </option>
           ))}
         </select>
       </div>
@@ -100,27 +112,45 @@ function ViewQuestion() {
         </div>
       )}
       <div>
-        {questions.length > 0 ? questions.map((questionSet, index) => (
-          <div className="ms-5 mt-5" key={index}>
-            {Object.keys(questionSet).map((key) => {
-              if (key.startsWith('question')) {
-                const questionNumber = key.replace('question', '');
-                return (
-                  <div key={questionNumber}>
-                    <h5>Question {questionNumber}</h5>
-                    <h6>{questionSet[key]} ?</h6>
-                    <p>A. {questionSet[`option${questionNumber}1`] || questionSet[`option1${questionNumber}`]}</p>
-                    <p>B. {questionSet[`option${questionNumber}2`] || questionSet[`option2${questionNumber}`]}</p>
-                    <p>C. {questionSet[`option${questionNumber}3`] || questionSet[`option3${questionNumber}`]}</p>
-                    <p>D. {questionSet[`option${questionNumber}4`] || questionSet[`option4${questionNumber}`]}</p>
-                    <p>Answer: {questionSet[`answer${questionNumber}`]}</p>
-                  </div>
-                );
-              }
-              return null;
-            })}
-          </div>
-        )) : (
+        {questions.length > 0 ? (
+          questions.map((questionSet, index) => (
+            <div className="ms-5 mt-5" key={index}>
+              {Object.keys(questionSet).map((key) => {
+                if (key.startsWith("question")) {
+                  const questionNumber = key.replace("question", "");
+                  return (
+                    <div key={questionNumber}>
+                      <h5>Question {questionNumber}</h5>
+                      <h6>{questionSet[key]} ?</h6>
+                      <p>
+                        A.{" "}
+                        {questionSet[`option${questionNumber}1`] ||
+                          questionSet[`option1${questionNumber}`]}
+                      </p>
+                      <p>
+                        B.{" "}
+                        {questionSet[`option${questionNumber}2`] ||
+                          questionSet[`option2${questionNumber}`]}
+                      </p>
+                      <p>
+                        C.{" "}
+                        {questionSet[`option${questionNumber}3`] ||
+                          questionSet[`option3${questionNumber}`]}
+                      </p>
+                      <p>
+                        D.{" "}
+                        {questionSet[`option${questionNumber}4`] ||
+                          questionSet[`option4${questionNumber}`]}
+                      </p>
+                      <p>Answer: {questionSet[`answer${questionNumber}`]}</p>
+                    </div>
+                  );
+                }
+                return null;
+              })}
+            </div>
+          ))
+        ) : (
           <div className="ms-5 mt-5">
             <h5>No questions added for this podcast</h5>
           </div>

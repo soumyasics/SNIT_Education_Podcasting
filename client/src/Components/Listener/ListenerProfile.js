@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ListenerSubscription from "./ListenerSubscription";
 
 function ListenerProfile({ url }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [listenerRegister, setListenerRegister] = useState({
     firstname: "",
     lastname: "",
@@ -22,11 +22,11 @@ function ListenerProfile({ url }) {
     image: "",
   });
   const handlelogout = () => {
-    localStorage.removeItem("listenerid")
-    localStorage.removeItem("token")
-    alert('logged out successfully')
-    navigate('/')
-  }
+    localStorage.removeItem("listenerid");
+    localStorage.removeItem("token");
+    alert("logged out successfully");
+    navigate("/");
+  };
 
   useEffect(() => {
     axiosInstance
@@ -49,7 +49,7 @@ function ListenerProfile({ url }) {
       <div className="row" id="profilemain">
         <div className="col-3">
           <img
-            src={listenerRegister? url + listenerRegister.image.filename:''}
+            src={listenerRegister ? url + listenerRegister.image.filename : ""}
             className="profile_img"
             alt="img"
           ></img>
@@ -57,25 +57,34 @@ function ListenerProfile({ url }) {
         <div className="col-8 mt-2">
           <div>
             <label className="profilename">
-              {listenerRegister?listenerRegister.firstname:""} {listenerRegister?listenerRegister.lastname:""}
+              {listenerRegister ? listenerRegister.firstname : ""}{" "}
+              {listenerRegister ? listenerRegister.lastname : ""}
             </label>
             <button className="btn btn-outline-dark bg-light px-4">
               <Link to="/listeneredit" className="editlink">
                 Edit
               </Link>
             </button>{" "}
-            <button onClick={handlelogout} className=" RegisterButton ms-2 p-2">Logout</button>
+            <button onClick={handlelogout} className=" RegisterButton ms-2 p-2">
+              Logout
+            </button>
           </div>
-          <div>{listenerRegister?listenerRegister.email:''}</div>
+          <div>{listenerRegister ? listenerRegister.email : ""}</div>
+          <div>{listenerRegister ? listenerRegister.mobile : ""}</div>
+          <div>
+            Date of Birth : {listenerRegister ? listenerRegister.dob : ""}
+          </div>
           <div>About me</div>
           <div>
-            my address : {listenerRegister?listenerRegister.street:''},{listenerRegister?listenerRegister.city:''},
-            {listenerRegister?listenerRegister.pincode:''},{listenerRegister?listenerRegister.country:''}
+            my address : {listenerRegister ? listenerRegister.street : ""},
+            {listenerRegister ? listenerRegister.city : ""},
+            {listenerRegister ? listenerRegister.pincode : ""},
+            {listenerRegister ? listenerRegister.country : ""}
           </div>
         </div>
       </div>
       <div className=" mt-5 mb-5">
-        <ListenerSubscription data={{url: url, role: 'listener'}}/>
+        <ListenerSubscription data={{ url: url, role: "listener" }} />
       </div>
     </div>
   );

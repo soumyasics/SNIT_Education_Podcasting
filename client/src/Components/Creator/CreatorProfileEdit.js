@@ -122,6 +122,7 @@ function CreatorEdit() {
                   name="firstname"
                   value={creatorRegister.firstname}
                   onChange={CreatorRegisterChange}
+                  required
                 />
               </div>
 

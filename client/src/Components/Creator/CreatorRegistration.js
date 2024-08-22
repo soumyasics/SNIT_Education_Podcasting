@@ -23,10 +23,9 @@ function CreatorRegister() {
     image: "",
   });
 
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const creatorRegisterChange = (e) => {
-    console.log(e.target.value);
     setCreatorRegister({
       ...CreatorRegister,
       [e.target.name]:
@@ -37,29 +36,40 @@ function CreatorRegister() {
   const onSubmitData = (e) => {
     e.preventDefault();
 
-    if (!validator.isMobilePhone(CreatorRegister.mobile)|| !validator.isByteLength(CreatorRegister.mobile,{
+    // Validate First Name and Last Name
+    if (/\d/.test(CreatorRegister.firstname) || /\d/.test(CreatorRegister.lastname)) {
+      alert("First name and Last name should not contain numbers.");
+    }
+    // Validate Date of Birth
+    else if (new Date(CreatorRegister.dob) > new Date()) {
+      alert("Date of Birth cannot be a future date.");
+    }
+    // Validate Mobile Number
+    else if (!validator.isMobilePhone(CreatorRegister.mobile) || !validator.isByteLength(CreatorRegister.mobile, {
       min: 10,
       max: 10
     })) {
-      alert("inValid Phone Number");
-    } else if (
-      !validator.isByteLength(CreatorRegister.pincode, {
-        min: 6,
-        max: 6,
-      })
-    ) {
-      alert("invalid Pincode");
-    } else if (!validator.isStrongPassword(CreatorRegister.password)) {
-      alert(
-        "password should have mininum 8 charecters including  1 Uppercase letter,1 lowercase letter, a number and special charecter "
-      );
-    } else {
+      alert("Invalid Phone Number");
+    }
+    // Validate Pincode
+    else if (!validator.isByteLength(CreatorRegister.pincode, {
+      min: 6,
+      max: 6
+    })) {
+      alert("Invalid Pincode");
+    }
+    // Validate Password
+    else if (!validator.isStrongPassword(CreatorRegister.password)) {
+      alert("Password should have a minimum of 8 characters, including 1 uppercase letter, 1 lowercase letter, a number, and a special character.");
+    }
+    // If all validations pass, submit the form
+    else {
       const formData = new FormData();
       for (let key in CreatorRegister) {
         formData.append(key, CreatorRegister[key]);
       }
       formData.append("image", CreatorRegister.image);
-      console.log(CreatorRegister.image);
+
       axiosInstance
         .post("/CreatorRegister", formData, {
           headers: {
@@ -67,16 +77,17 @@ function CreatorRegister() {
           },
         })
         .then((response) => {
-          console.log(response);
-          alert(response.data.msg);
-          navigate("/creatorlogin")
-
+          if(response.data.status==200){
+            navigate("/creatorlogin");
+            alert('Registered Successfully')
+          }else{
+            alert(response.data.msg);
+          }
+          
         })
         .catch((error) => {
           console.error("Error submitting data: ", error);
         });
-
-      console.log("Submitted");
     }
   };
 
@@ -86,17 +97,15 @@ function CreatorRegister() {
         <div className="backgroundimg">
           <Container>
             <Row>
-              {" "}
               <Col>
                 <div className="text-center ms-5 ps-5 mt-4">
                   <b>Register</b>
                 </div>
-
                 <label>Name</label>
                 <div className="firstname">
                   <input
                     type="text"
-                    placeholder="firstname"
+                    placeholder="First Name"
                     className="form-control"
                     name="firstname"
                     id="inputtransparent"
@@ -107,7 +116,7 @@ function CreatorRegister() {
                 <div className="mb-2 mt-3">
                   <label className="pb-3">Gender</label>
                   <div>
-                    <label for="male">&nbsp; Male &nbsp;</label>
+                    <label htmlFor="male">&nbsp; Male &nbsp;</label>
                     <input
                       type="radio"
                       id="male"
@@ -116,7 +125,7 @@ function CreatorRegister() {
                       onChange={creatorRegisterChange}
                       required
                     />
-                    <label for="female">&nbsp; Female &nbsp;</label>
+                    <label htmlFor="female">&nbsp; Female &nbsp;</label>
                     <input
                       type="radio"
                       id="female"
@@ -125,8 +134,7 @@ function CreatorRegister() {
                       onChange={creatorRegisterChange}
                       required
                     />
-                    <label for="other">&nbsp; Other &nbsp;</label>
-
+                    <label htmlFor="other">&nbsp; Other &nbsp;</label>
                     <input
                       type="radio"
                       id="other"
@@ -138,8 +146,7 @@ function CreatorRegister() {
                   </div>
                 </div>
                 <div className="mb-3">
-                  <label>Date of birth</label>
-
+                  <label>Date Of Birth</label>
                   <input
                     type="date"
                     placeholder="dob"
@@ -153,14 +160,12 @@ function CreatorRegister() {
                 </div>
               </Col>
               <Col>
-                {" "}
                 <div className="mt-5  mb-3">
                   <label></label>
-
                   <input
                     type="text"
                     id="inputtransparent"
-                    placeholder="lastname"
+                    placeholder="Last Name"
                     name="lastname"
                     className="form-control"
                     value={CreatorRegister.lastname}
@@ -173,13 +178,11 @@ function CreatorRegister() {
             </Row>
             <Row>
               <Col>
-                <label>location</label>
-
                 <div className="mb-3">
                   <input
                     type="text"
                     id="inputtransparent"
-                    placeholder="street"
+                    placeholder="Street"
                     className="form-control"
                     value={CreatorRegister.street}
                     name="street"
@@ -188,11 +191,10 @@ function CreatorRegister() {
                   />
                 </div>
                 <div className="mb-3">
-                  <label>Contact</label>
                   <input
                     id="inputtransparent"
                     type="number"
-                    placeholder="mobile"
+                    placeholder="Mobile"
                     className="form-control"
                     value={CreatorRegister.mobile}
                     name="mobile"
@@ -201,12 +203,10 @@ function CreatorRegister() {
                   />
                 </div>
                 <div className="mb-3">
-                  <label>Email verification</label>
-
                   <input
                     id="inputtransparent"
                     type="email"
-                    placeholder="Enter your email"
+                    placeholder="Enter Your Email"
                     className="form-control"
                     name="email"
                     value={CreatorRegister.email}
@@ -218,7 +218,7 @@ function CreatorRegister() {
                   <input
                     id="inputtransparent"
                     type="password"
-                    placeholder="password"
+                    placeholder="Password"
                     name="password"
                     className="form-control"
                     value={CreatorRegister.password}
@@ -271,7 +271,7 @@ function CreatorRegister() {
                 <div className="mb-3 pt-4">
                   <input
                     type="text"
-                    placeholder="city"
+                    placeholder="City"
                     name="city"
                     id="inputtransparent"
                     className="form-control"

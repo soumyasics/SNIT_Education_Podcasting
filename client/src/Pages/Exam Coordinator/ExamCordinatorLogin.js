@@ -67,6 +67,7 @@ function ExamCordinatorLogin() {
           console.log(res);
           if(res.status === 200){
               alert(res.data.message)
+              localStorage.setItem('cordinator',1)
               navigate("/examcoordinatehome")
           }
       })

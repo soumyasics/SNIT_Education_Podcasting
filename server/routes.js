@@ -15,7 +15,7 @@ const Answer=require('./Answers/answerController')
 
 //Listeners
 router.post('/listenerLogin',listener.ListenerLogin)
-router.post('/listenerregister',listener.upload,listener.ListenerRegister)
+router.post('/listenerregister',listener.upload2,listener.ListenerRegister)
 router.post('/editListenerById',listener.upload,listener.editListenerById)
 router.post('/viewListenerById',listener.viewListenerById)
 router.post('/deleteListenerById/:id',listener.deleteListenerById)
