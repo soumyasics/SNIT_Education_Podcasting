@@ -22,21 +22,21 @@ function CreatorList({ url }) {
 
     return (
         <div className='row adminbg '>
-            <div className='col-2'><AdminSidebar /></div>
-            <div className='col-10 mt-5 pt-5'>< div style={{
+            <div className='col-3'><AdminSidebar /></div>
+            <div className='col-9 mt-5 pt-5'>< div style={{
                 margin: "8px", padding: "14px",
                 boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
             }}>   <h3 className='text-success'>Creators List</h3>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
-                            <th>profile</th>
+                            <th>Profile</th>
                             <th> Name</th>
                             <th> Mobile</th>
                             <th>Email ID</th>
                             <th> DOB</th>
                             <th> Gender</th>
-                            <th> country
+                            <th> Country
                             </th> <th> City</th>
 
                         </tr>

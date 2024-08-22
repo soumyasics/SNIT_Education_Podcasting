@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import logo from "../../Assest/Logo (1).png";
@@ -10,6 +10,12 @@ function ExamCoordinatorNav() {
 
     const navigate=useNavigate();
 
+    useEffect(()=>{
+        if(localStorage.getItem('cordinator')==null){
+            navigate('/')
+        }
+    })
+
     const handleviewreq = () => {
         navigate("/examcoordinateviewrequest")
     }
@@ -17,6 +23,13 @@ function ExamCoordinatorNav() {
     const handleviewall = () => {
         navigate("/examcoordinateviewall")
     }
+
+    const handlelogout = () => {
+        localStorage.removeItem("cordinator");
+        alert("Loggedout Successfully");
+        navigate("/");
+      };
+
   return (
     <div>
         <Navbar>
@@ -29,7 +42,7 @@ function ExamCoordinatorNav() {
                         >
                         <b>Home</b>
                     </Link>
-                    <Dropdown className='ms-5'>
+                    <Dropdown className='mx-3'>
                         <Dropdown.Toggle variant="white" style={{border:'none'}} className="examcoordinate-nav-home">
                             <b>Exam</b>
                         </Dropdown.Toggle>
@@ -38,6 +51,13 @@ function ExamCoordinatorNav() {
                             <Dropdown.Item onClick={handleviewall}>View All</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
+                    <Link
+                        className="examcoordinate-nav-home"
+                        >
+                       <button onClick={handlelogout} className=" RegisterButton ms-2 p-2">
+              Logout
+            </button>
+                    </Link>
                 </Navbar.Collapse>
             </Container>
         </Navbar>

@@ -21,28 +21,31 @@ function ListenerList({ url }) {
   }, []);
 
   return (
-    <div className=" row mt-5 pt-5">
-      <div className="col-1 mt-5 py-5 px-4"></div>
-      <div className="col-10">
+    <div className=" row">
+      {/* <div className="col-1 mt-5 py-5 px-4"></div> */}
+      <div className="col-3">
+        <AdminSidebar />
+      </div>
+      <div className="col-9 mt-5">
         <div
-          style={{
-            margin: "8px",
-            padding: "14px",
-            boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-          }}
+          // style={{
+          //   margin: "8px",
+          //   padding: "14px",
+          //   boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+          // }}
         >
           <h2>Listeners List</h2>
 
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>profile</th>
+                <th>Profile</th>
                 <th> Name</th>
                 <th> Mobile</th>
                 <th>Email ID</th>
                 <th> DOB</th>
                 <th> Gender</th>
-                <th> country</th> <th> City</th>
+                <th> Country</th> <th> City</th>
               </tr>
             </thead>
            

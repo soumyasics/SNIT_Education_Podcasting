@@ -3,6 +3,8 @@ import AdminSidebar from '../../Components/Admin/AdminSidebar'
 import Table from 'react-bootstrap/Table';
 import axiosInstance from '../../Baseurl';
 import '../../Components/Creator/creatorpodcastlist.css'
+
+
 function SbscriptionList() {
     const [subscriptionList, setsubscriptionList] = useState([])
 
@@ -25,7 +27,7 @@ function SbscriptionList() {
 
   return (
     <div className='row '>
-    <div className='col-2 '><AdminSidebar /></div>
+    <div className='col-3 '><AdminSidebar /></div>
     <div className='col-9 mt-5 pt-5'>< div style={{
         margin: "8px", padding: "14px",
         boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
@@ -33,13 +35,13 @@ function SbscriptionList() {
         <Table striped bordered hover>
             <thead>
                 <tr>
-                    <th>profile</th>
+                    <th>Profile</th>
                     <th> Name</th>
                     <th> Mobile</th>
                     <th>Email ID</th>
                     <th> DOB</th>
                     <th> Gender</th>
-                    <th> country
+                    <th> Country
                     </th> <th> City</th>
 
                 </tr>

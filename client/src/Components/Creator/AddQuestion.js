@@ -58,6 +58,11 @@ function AddQuestion() {
     ]);
   };
 
+  const handleRemoveQuestion = (index) => {
+    const newQuestions = questions.filter((_, i) => i !== index);
+    setQuestions(newQuestions);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formErrors = validateForm();
@@ -143,6 +148,15 @@ function AddQuestion() {
                 {errors[`${index}_question`]}
               </span>
             )}
+            <div className="text-end">
+            <button
+              className="btn btn-danger ms-3 mt-2"
+              onClick={() => handleRemoveQuestion(index)}
+            >
+              Remove
+            </button>
+              </div>
+           
           </div>
 
           <div>

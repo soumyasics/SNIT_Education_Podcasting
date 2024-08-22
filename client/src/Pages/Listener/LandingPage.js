@@ -19,8 +19,8 @@ function LandingPage(props) {
             <div className="mb-4">
               Dive into a World of Knowledge with EduSphere
             </div>
-            <p>
-              "Welcome to edusphere, where curiosity meets expertise! Embark on
+            <p className="text-justify" >
+              "Welcome to Podcast World, where curiosity meets expertise! Embark on
               an enlightening journey with our educational podcast, curated for
               passionate learners, eager to explore the depths of knowledge.
               Immerse yourself in thought-provoking discussions, expert
@@ -39,14 +39,14 @@ function LandingPage(props) {
                     Your Latest podcast
                   </Link>
                 </button>
-                <button className="btn border border-dark rounded-pill px-5 ms-3">
+                {/* <button className="btn border border-dark rounded-pill px-5 ms-3">
                   <Link
                     className="text-dark text-decoration-none"
                     to="/listenersubscription"
                   >
                     Subscribed
                   </Link>
-                </button>
+                </button> */}
               </div>
             ) : (
               <div>

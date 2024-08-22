@@ -16,11 +16,13 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage }).single("file");
+const upload = multer({ storage: storage }).single("image");
+const upload2 = multer({ storage: storage }).single("file");
+
 
 const ListenerRegister = (req, res) => {
 // console.log(req.body);
-//  console.log(req.file);
+ console.log(req.file);
   let image = req.file;
   let listener = new ListenerSchema({
     firstname: req.body.firstname,
@@ -340,5 +342,6 @@ module.exports = {
   getAllPodcast,
   addToWishlist,
   getWishlist,
-  listenerCollection
+  listenerCollection,
+  upload2
 };

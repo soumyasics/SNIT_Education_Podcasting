@@ -106,11 +106,23 @@ function ExamReportDetail({ url }) {
           </div>
         </label>
       </div>
-      <div className="row">
-        <div className="col-3"></div>
-        <div className="col-5">
-          <div className="row">
-            <div className="col-8 mt-3 ps-5 ms-5">
+      <div className="exm_report_details mt-3">
+        {/* <div className="col-3"></div> */}
+        {/* <div className="col-5"> */}
+          {/* <div className="row"> */}
+            <div className="d-flex justify-content-between" >
+            <b>Total Number of Questions</b>
+            <b>{outOf}</b>
+
+            </div>
+            {/* <div>
+            </div> */}
+            <div className="d-flex justify-content-between" >
+            <b>Total Number of Correct Answer</b>
+            <b>{score}</b>
+            </div>
+          
+            {/* <div className="col-lg-8 col-md-8 col-sm-8 mt-3 ps-5 ms-5">
               <div>
                 <b>Total Number of Questions</b>
               </div>
@@ -118,7 +130,7 @@ function ExamReportDetail({ url }) {
                 <b>Total Number of Correct Answer </b>
               </div>
             </div>
-            <div className="col-1 mt-3">
+            <div className="col-lg-1 col-md-1 col-sm-1 mt-3">
               <div>
                 <b>:</b>
               </div>
@@ -126,17 +138,17 @@ function ExamReportDetail({ url }) {
                 <b>:</b>
               </div>
             </div>
-            <div className="col-2 mt-3">
+            <div className="col-lg-2 col-md-2 col-sm-2 mt-3">
               <div>
                 <b>{outOf}</b>
               </div>
               <div>
                 <b>{score}</b>
               </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-4"></div>
+            </div> */}
+          {/* </div> */}
+        {/* </div> */}
+        {/* <div className="col-lg-4 col-md-4 col-sm-4"></div> */}
       </div>
       <div className="container">
         {questions.length > 0 ? (

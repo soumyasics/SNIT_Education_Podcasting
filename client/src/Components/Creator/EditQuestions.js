@@ -97,7 +97,10 @@ function EditQuestions() {
       axiosInstance
         .post(`/updateQuestion/${selectedPodcast._id}`, questions)
         .then((result) => {
-          alert("Questions updated successfully");
+          console.log(result);
+          if(result.status === 200){
+            alert("Questions updated successfully");
+          }
         })
         .catch((error) => {
           setErrorMessage("An error occurred while updating the questions");
@@ -108,7 +111,7 @@ function EditQuestions() {
   return (
     <div className="container">
       <div className="text-center">
-        <h3 className="add-question-h3">Edit Question</h3>
+        <h3 className="add-question-h3">Manage Questions</h3>
       </div>
       <select
         className="add-question-select ps-3"
@@ -132,9 +135,14 @@ function EditQuestions() {
           {Array.from({ length: 10 }).map((_, qIndex) => {
             const questionKey = `question${qIndex + 1}`;
             const answerKey = `answer${qIndex + 1}`;
-            const options = [`option${qIndex + 1}1`, `option${qIndex + 1}2`, `option${qIndex + 1}3`, `option${qIndex + 1}4`];
+            const options = [
+              `option${qIndex + 1}1`,
+              `option${qIndex + 1}2`,
+              `option${qIndex + 1}3`,
+              `option${qIndex + 1}4`,
+            ];
 
-            if (question[questionKey]) {
+            if (question[questionKey] !== undefined) {
               return (
                 <div key={qIndex}>
                   <div className="mt-5">
@@ -189,7 +197,7 @@ function EditQuestions() {
 
       <div className="text-center mt-4">
         <button className="add-question-savebtn ms-3" onClick={handleSubmit}>
-          Save
+          Update
         </button>
       </div>
     </div>

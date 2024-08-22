@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { IoHomeSharp } from "react-icons/io5";
 import { FaMicrophone } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi";
@@ -12,6 +12,14 @@ import { FaGraduationCap } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
 
 function AdminSidebar() {
+
+  useEffect(()=>{
+    if(localStorage.getItem("admin")==null){
+      navigate('/')
+    }
+    
+  })
+
 const navigate=useNavigate()
 
   const handlelogout=(e)=>{
@@ -30,7 +38,7 @@ const navigate=useNavigate()
     <div className="sidebar">
     <div className="adminsidebar-background-color">
       <div className="text-center mt-5">
-        <button className="adminsidebar-logoutbtn">LOG OUT</button>
+        <button className="adminsidebar-logoutbtn" onClick={handlelogout}>LOG OUT</button>
       </div>
       <div className="sidebarelements mt-5 pt-3">
         {" "}
@@ -44,12 +52,12 @@ const navigate=useNavigate()
 
       <div className="sidebarelements mt-4">
         {" "}
-        <Link to="/creatorlist"><HiUsers className="adminsidebar-link1" style={{fontSize:"25"}}/><label className="adminsidebar-link ms-2">Users</label></Link>
+        <Link to="/listenerlist"><HiUsers className="adminsidebar-link1" style={{fontSize:"25"}}/><label className="adminsidebar-link ms-2">Users</label></Link>
       </div>
 
       <div className="sidebarelements mt-4">
         {" "}
-        <Link to=""><BsPersonFillUp className="adminsidebar-link1" style={{fontSize:"25"}}/><label className="adminsidebar-link ms-2">Creators</label></Link>
+        <Link to="/creatorlist"><BsPersonFillUp className="adminsidebar-link1" style={{fontSize:"25"}}/><label className="adminsidebar-link ms-2">Creators</label></Link>
       </div>
 
       <div className="sidebarelements mt-4">
@@ -62,10 +70,10 @@ const navigate=useNavigate()
         <Link to=""><FaGraduationCap className="adminsidebar-link1" style={{fontSize:"25"}} /><label className="adminsidebar-link ms-2">Exam Coordinator</label></Link>
       </div>
 
-      <div className="sidebarelements mt-4">
+      {/* <div className="sidebarelements mt-4">
         {" "}
         <Link to=""><IoSearch className="adminsidebar-link1" style={{fontSize:"25"}} /><label className="adminsidebar-link ms-2">Search</label></Link>
-      </div>
+      </div> */}
       
 
     

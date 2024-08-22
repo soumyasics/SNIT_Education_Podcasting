@@ -19,7 +19,7 @@ function CreatorNavbar({url}) {
   }
 
   const viewquestion = () => {
-    navigate("/createrviewquestion")
+    navigate("/createreditquestion")
   }
 
   const ExamQuestionStatus = () => {

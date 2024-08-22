@@ -83,10 +83,10 @@ function AdminExamCoordinatorLogin() {
 
   return (
     <div className='row'>
-        <div className='col-2'>
+        <div className='col-3'>
             <AdminSidebar/>
         </div>
-        <div className='col-10'>
+        <div className='col-9'>
             <div className='text-center mt-5 pt-5'>
                 <h4 className='exam-coordinate-login-h4'>Exam Coordinator</h4>
             </div>

@@ -126,6 +126,15 @@ function ListenerRegister() {
                       onChange={ListenerRegisterChange}
                       required
                     />
+                     <label htmlFor="other">&nbsp; Other &nbsp;</label>
+                    <input
+                      type="radio"
+                      id="other"
+                      name="gender"
+                      value="Other"
+                      onChange={ListenerRegisterChange}
+                      required
+                    />
                   </div>
                 </div>
                 <div className="mb-2 mt-3">
