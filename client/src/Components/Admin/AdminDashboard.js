@@ -8,7 +8,7 @@ import ListenerList from "../../Pages/Admin/ListenerList";
 import AdminSidebar from "./AdminSidebar";
 
 
-function AdminDashboard({url}) {
+function AdminDashboard({url,isDashboard}) {
   const [ListenerCount, setListenerCount] = useState(0);
   const [creatorCount, setCreatorCount] = useState(0);
   const [podcastcount, setPodcastCount] = useState(0);
@@ -80,7 +80,7 @@ function AdminDashboard({url}) {
               </div>
             </div>
             <div>
-            <ListenerList url={url} />
+            <ListenerList url={url} isDashboard />
             </div>
           </div>
 

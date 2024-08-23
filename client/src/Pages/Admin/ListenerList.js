@@ -3,7 +3,7 @@ import AdminSidebar from "../../Components/Admin/AdminSidebar";
 import Table from "react-bootstrap/Table";
 import axiosInstance from "../../Baseurl";
 
-function ListenerList({ url }) {
+function ListenerList({ url,isDashboard }) {
   const [listenerlist, setListenerList] = useState([]);
 
   console.log(url);
@@ -23,9 +23,12 @@ function ListenerList({ url }) {
   return (
     <div className=" row">
       {/* <div className="col-1 mt-5 py-5 px-4"></div> */}
-      <div className="col-3">
+      {
+        isDashboard?'':<div className="col-3">
         <AdminSidebar />
       </div>
+      }
+      
       <div className="col-9 mt-5">
         <div
           // style={{

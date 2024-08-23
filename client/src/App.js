@@ -119,7 +119,7 @@ function App() {
 
         <Route path="/adminhome" element={[<AdminLandingPage />, <Footer />]} />
         <Route path="/adminlogin" element={<AdminLogin />} />
-        <Route path="/admindashboard" element={[<AdminDashboard url={url} />, <Footer />]} />
+        <Route path="/admindashboard" element={[<AdminDashboard url={url} isDashboard />, <Footer />]} />
         <Route path="/paymentform/:id" element={<Paymentform />} />
         <Route path="/listenerlist" element={<ListenerList url={url} />} />
         <Route path="/creatorlist" element={<CreatorList url={url} />} />
