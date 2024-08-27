@@ -1,6 +1,8 @@
 const CreatorPodcastSchema = require("./CreatorPodcastSchema");
 const CreatorEpisode = require("./CreatorEpisodeSchema");
 const multer = require("multer");
+const WishlistSchema=require("../Listener/WishlistSchema")
+const SubscriptionSchema=require("../Listener/Subscriptions/subscriptionSchema")
 
 const storage = multer.diskStorage({
   destination: function (req, res, cb) {
@@ -198,6 +200,64 @@ const creatorpodcastCollection = async (req, res) => {
   }
 };
 
+const deleteAPodcast = async (req, res) => {
+  try {
+    const { id } = req.params; // Get the podcast ID from the request parameters
+
+    // Check if the podcast exists
+    const podcast = await CreatorPodcastSchema.findById(id);
+    if (!podcast) {
+      return res.status(404).json({
+        status: 404,
+        msg: "Podcast not found",
+      });
+    }
+
+    // Check if the podcast is in any subscriptions
+    const subscriptionExists = await SubscriptionSchema.findOne({ podcastid: id });
+    if (subscriptionExists) {
+      return res.status(400).json({
+        status: 400,
+        msg: "Deletion is not possible as we already have subscribers for this podcast",
+      });
+    }
+
+    // Check if the podcast is in any wishlists
+    const wishlistExists = await WishlistSchema.findOne({ podcastId: id });
+    if (wishlistExists) {
+      return res.status(400).json({
+        status: 400,
+        msg: "Deletion is not possible as the podcast is in a wishlist",
+      });
+    }
+
+    // Check if the podcast has associated episodes
+    const episodesExist = await CreatorEpisode.findOne({ podcastId: id });
+    if (episodesExist) {
+      return res.status(400).json({
+        status: 400,
+        msg: "Deletion is not possible as there are episodes associated with this podcast",
+      });
+    }
+
+    // Proceed to delete the podcast
+    await CreatorPodcastSchema.findByIdAndDelete(id);
+
+    // Successfully deleted
+    res.json({
+      status: 200,
+      msg: "Podcast deleted successfully",
+    });
+  } catch (err) {
+    // Handle errors
+    res.status(500).json({
+      status: 500,
+      msg: "Failed to delete podcast",
+      error: err.message,
+    });
+  }
+};
+
 module.exports = {
   creatorUploadPodcast,
   multipleUpload,
@@ -207,5 +267,6 @@ module.exports = {
   getAllPodcast,
   getPodcastByPodcastId,
   getEpisodedOfPodcast,
+ deleteAPodcast,
   creatorpodcastCollection,
 };
