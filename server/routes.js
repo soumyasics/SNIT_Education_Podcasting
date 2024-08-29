@@ -43,6 +43,7 @@ router.post("/getAllPodcast", creatorpodcast.getAllPodcast)
 router.post("/getPodcastByPodcastId", creatorpodcast.getPodcastByPodcastId)
 router.post("/getEpisodedOfPodcast", creatorpodcast.getEpisodedOfPodcast)
 router.post("/podcastcollection", creatorpodcast.creatorpodcastCollection)
+router.post("/deleteAPodcastbypodcastid/:id",creatorpodcast.deleteAPodcast)
 
 router.post("/listenercollection", listener.listenerCollection)
 router.post("/creatorCollection",creator.creatorCollection)
