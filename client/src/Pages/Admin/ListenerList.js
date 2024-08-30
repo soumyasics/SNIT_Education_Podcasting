@@ -38,8 +38,8 @@ function ListenerList({ url,isDashboard }) {
           // }}
         >
           <h2>Listeners List</h2>
-
-          <Table striped bordered hover>
+{
+  listenerlist.length>0?<Table striped bordered hover>
             <thead>
               <tr>
                 <th>Profile</th>
@@ -83,8 +83,10 @@ function ListenerList({ url,isDashboard }) {
                   <td>{item.city}</td>
                 </tr>
               </tbody>
-            )) : 'no listeners fount'}
-          </Table>
+            )) : 'No Listeners Found'}
+          </Table>:'No Listeners Found'
+}
+          
         </div>
       </div>
     </div>
