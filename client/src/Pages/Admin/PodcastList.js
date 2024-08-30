@@ -39,7 +39,8 @@ function PodcastList({ url }) {
         >
           {" "}
           <h3 className="text-success">Podcast List</h3>
-          <Table striped bordered hover>
+          {
+            podcastlist.length>0?<Table striped bordered hover>
             <thead>
               <tr>
                 <th>Podcast Name</th>
@@ -67,7 +68,9 @@ function PodcastList({ url }) {
                 </tr>
               </tbody>
             ))}
-          </Table>
+          </Table>:'No Podcast Found'
+          }
+          
         </div>
       </div>
     </div>

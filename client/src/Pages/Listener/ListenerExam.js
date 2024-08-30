@@ -54,11 +54,11 @@ function ListenerExam() {
       .catch((error) => {
         if (
           error.response &&
-          error.response.status === 400 &&
+          error.response.status === 400 &&           
           error.response.data.error ===
             "You have already attended this Set of Questions"
         ) {
-          alert("A question set already exists for this podcast");
+          alert("You have already attended this Set of Questions");
         } else {
           alert("Error occurred while adding question");
           console.error(error);

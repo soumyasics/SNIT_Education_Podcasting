@@ -32,7 +32,8 @@ function SbscriptionList() {
         margin: "8px", padding: "14px",
         boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
     }}>   <h3 className='text-success'>Subscription List</h3>
-        <Table striped bordered hover>
+    {
+        subscriptionList.length>0?<Table striped bordered hover>
             <thead>
                 <tr>
                     <th>Profile</th>
@@ -51,20 +52,22 @@ function SbscriptionList() {
                     <tbody>
                         <tr>
                             <td>{ }</td>
-                            <td>{item.firstname}{item.lastname}</td>
-                            <td>{item.mobile}</td>
-                            <td>{item.email}</td>
-                            <td>{item.dob}</td>
-                            <td>{item.gender}</td>
-                            <td>{item.country}</td>
-                            <td>{item.city}</td>
+                            <td>{item.listenerid?.firstname}{item.listenerid.lastname}</td>
+                            <td>{item.listenerid?.mobile}</td>
+                            <td>{item.listenerid?.email}</td>
+                            <td>{item.listenerid?.dob}</td>
+                            <td>{item.listenerid?.gender}</td>
+                            <td>{item.listenerid?.country}</td>
+                            <td>{item.listenerid?.city}</td>
 
                         </tr>
                     </tbody>
                 ))
             }
 
-        </Table>
+        </Table>:'No Subscriptions Found'
+    }
+        
     </div></div>
 </div>
   )
