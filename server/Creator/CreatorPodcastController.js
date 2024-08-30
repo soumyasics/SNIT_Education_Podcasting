@@ -199,7 +199,7 @@ const creatorpodcastCollection = async (req, res) => {
   }
 };
 
-const deleteAPodcast = async (req, res) => {
+const    deleteAPodcast = async (req, res) => {
   try {
     const { id } = req.params; 
 
