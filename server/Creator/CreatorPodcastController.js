@@ -1,5 +1,7 @@
 const CreatorPodcastSchema = require("./CreatorPodcastSchema");
 const CreatorEpisode = require("./CreatorEpisodeSchema");
+const WishlistSchema=require("../Listener/WishlistSchema")
+const SubscriptionSchema=require("../Listener/Subscriptions/subscriptionSchema")
 const multer = require("multer");
 
 const storage = multer.diskStorage({
@@ -192,11 +194,57 @@ const creatorpodcastCollection = async (req, res) => {
     const creatorpodcastCollection = await CreatorPodcastSchema.find({});
     const count = creatorpodcastCollection.length;
     res.json({ count });
-    // console.log(donorCollections);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+
+const deleteAPodcast = async (req, res) => {
+  try {
+    const { id } = req.params; 
+
+    const podcast = await CreatorPodcastSchema.findById(id);
+    if (!podcast) {
+      return res.status(404).json({
+        status: 404,
+        msg: "Podcast not found",
+      });
+    }
+
+    const subscriptionExists = await SubscriptionSchema.findOne({ podcastid: id });
+    if (subscriptionExists) {
+      return res.status(400).json({
+        status: 400,
+        msg: "Deletion is not possible as we already have subscribers for this podcast",
+      });
+    }
+
+    const wishlistExists = await WishlistSchema.findOne({ podcastId: id });
+    if (wishlistExists) {
+      return res.status(400).json({
+        status: 400,
+        msg: "Deletion is not possible as the podcast is in a wishlist",
+      });
+    }
+
+    await CreatorEpisode.deleteMany({ podcastId: id });
+
+    await CreatorPodcastSchema.findByIdAndDelete(id);
+
+    res.json({
+      status: 200,
+      msg: "Podcast and its episodes deleted successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: 500,
+      msg: "Failed to delete podcast",
+      error: err.message,
+    });
+  }
+};
+
+
 
 module.exports = {
   creatorUploadPodcast,
@@ -208,4 +256,5 @@ module.exports = {
   getPodcastByPodcastId,
   getEpisodedOfPodcast,
   creatorpodcastCollection,
+  deleteAPodcast
 };
